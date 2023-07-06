@@ -1,0 +1,15 @@
+                    <!-- Demo Data -->
+<odoo>
+<record id="demo_student_1" model="school.management.student">
+    <field name="name">Demo Student 1</field>
+    <field name="phone_number">0101010101</field>
+</record>
+<record id="demo_student_2" model="school.management.student">
+    <field name="name">Demo Student 2</field>
+    <field name="phone_number">0202020202</field>
+</record>
+<record id="demo_student_3" model="school.management.student">
+    <field name="name">Demo Student 3</field>
+    <field name="phone_number">0303030303</field>
+</record>
+</odoo>
