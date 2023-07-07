@@ -1,7 +1,8 @@
 # Odoo-Tasks
 
 <p align="center">
-    <img src="../school_management/image/schoollogo.png" alt="Logo" width="200">
+    <img src="../custom_addons/school_management/image/schoollogo.png" alt="Logo" width="200">
+
   </a>
   
 ## Features
@@ -13,4 +14,3 @@
 - Tools
   - VS Code
   - Git
-  - Github
