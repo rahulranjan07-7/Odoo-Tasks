@@ -1,7 +1,8 @@
 # Odoo-Tasks
 
 <p align="center">
-    <img src="../custom_addons/school_management/image/schoollogo.png" alt="Logo" width="200">
+    
+    <img src="https://github.com/rahulranjan07-7/Odoo-Tasks/blob/main/school_management/image/schoollogo.png" alt="Logo" width="200">
 
   </a>
   
