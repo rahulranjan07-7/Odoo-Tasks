@@ -1,7 +1,7 @@
 # Odoo-Tasks
 
 <p align="center">
-    <img src="/school_management/image/schoollogo.png" alt="Logo" width="200">
+    <img src="../image/schoollogo.png" alt="Logo" width="200">
   </a>
   
 ## Features
