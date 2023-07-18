@@ -1,10 +1,8 @@
 # Odoo-Tasks
-
 <p align="center">
-    <img src="../custom_addons/school_management/image/schoollogo.png" alt="Logo" width="200">
+  <img src="https://github.com/rahulranjan07-7/Odoo-Tasks/blob/main/school_management/image/schoollogo.png?raw=true" alt="School Management Logo"/>
+</p>
 
-  </a>
-  
 ## Features
 * <b>Registration :</b> Create a student admission form using Name,E-mail,phone number many other information to get admission in school.
 ## Technology Stack
@@ -14,3 +12,4 @@
 - Tools
   - VS Code
   - Git
+  - Github
