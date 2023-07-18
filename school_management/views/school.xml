@@ -7,63 +7,117 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                    <div style="display: flex;">
-                        <div style="margin-right: 20px;">
-                            <group>
-                            <field name="name"/>
-                            <field name="date_of_birth"/>
-                            <field name="age"/>
-                            <field name="phone_number"/>
-                            <field name="birth_month"/>
-                            </group>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <div>
+                                <h1>
+                                    <field name="enrollment_number" readonly="1" />
+                                </h1>
+                            </div>
                         </div>
-                        <div style="margin-right: 20px;">
-                            <group>
-                            <field name="standard_division"/>
-                            <field name="stream" attrs="{'invisible': [('standard_division', 'not in', ('11','12'))]}"/>
-                            <field name="class_teacher" widget="Many2one_link"/>
-                            <field name="enrollment_number"/>
-                            <field name="roll_number"/>
-                            </group>
+                        <div style="display: flex;">
+                            <div style="margin-right: 20px;">
+                                <group>
+                                    <field name='student_name'/>
+                                    <field name="name"/>
+                                    <field name="date_of_birth"/>
+                                    <field name="is_good" widget="toggle_button"/>
+                                    <field name="gender" placeholder="Select"/>
+                                </group>
+                            </div>
+                            <div style="margin-right: 20px;">
+                                <group>
+                                    <field name="age"/>
+                                    <field name="phone_number"/>
+                                    <field name="birth_month"/>
+                                    <field name="roll_number"/>
+                                </group>
+                            </div>
+                            <div style="margin-right: 20px;">
+                                <group>
+                                    <field name="standard_division"/>
+                                    <field name="stream" attrs="{'invisible': [('standard_division', 'not in', ('11','12'))]}"/>
+                                    <field name="class_teacher" widget="Many2one_link"/>
+                                    <field name='payment_status'/>
+                                    <field name="status"/>
+                                </group>
+                            </div>
                         </div>
-                        <div style="margin-right: 20px;">
-                            <group>    
-                            <field name="street"/>
-                            <field name="city"/>
-                            <field name="state_id"/>
-                            <field name="country_id"/>
-                            <field name="zip_code"/> 
-                            <field name="address"/>
-                            </group>
-                        </div>
-                    </div>
 
                         <notebook>
                             <page string="Parents Details">
-                                <group>
-                                    <field name="parent_name"/>
-                                    <field name="relation_with_child"/>
-                                    <field name="parent_phone_number"/>
-                                    <field name="email_address"/>
-                                </group>
+                                <div style="margin-right: 20px;">
+                                    <group>
+                                        <field name="parent_name"/>
+                                        <field name="relation_with_child"/>
+                                        <field name="parent_phone_number"/>
+                                        <field name="email_address"/>
+                                    </group>
+                                </div>
                             </page>
                             <page string="Previous School Details">
-                                <group>
-                                    <field name="school_name"/>
-                                    <field name="previous_roll_number"/>
-                                    <field name="admission_date"/>
-                                    <field name="leaving_date"/>
-                                </group>
+                                <div style="margin-right: 20px;">
+                                    <group>
+                                        <field name="school_name"/>
+                                        <field name="previous_roll_number"/>
+                                        <field name="admission_date"/>
+                                        <field name="leaving_date"/>
+                                        <button name="action_url" string="Redirect" type="object" class="oe_highlight" />
+                                    </group>
+                                </div>
                             </page>
+                            <page string="Address Details">
+                                <div style="margin-right: 20px;">
+                                    <group>
+                                        <field name="street"/>
+                                        <field name="city"/>
+                                        <field name="state_id"/>
+                                        <field name="country_id"/>
+                                        <field name="zip_code"/>
+                                        <field name="address"/>
+                                        <button name="%(create_school_info)d" string="Wizard" type="action" class="oe_highlight" />
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Hobbies Details">
+                                <field name="hobbies_ids">
+                                    <tree>
+                                        <field name="fav_sports"/>
+                                        <field name="no_of_sports"/>
+                                        <field name="enrollment_number"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="sports_fee"/>
+                                        <field name="fee_sub_total"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="fav_sports"/>
+                                            <field name="no_of_sports"/>
+                                            <field name="enrollment_number"/>
+                                            <field name="sports_fee"/>
+                                            <field name="fee_sub_total"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Teacher Details">
+                                <form>
+                                    <group>
+                                        <field name="teacher_details"/>
+                                    </group>
+                                </form>
+                            </page>
+
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="message_ids" options="{'post refresh': 'recipients'}"/>
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids" options="{'post refresh': 'recipients'}"/>
                     </div>
                 </form>
             </field>
         </record>
+
 
 
         <record id="view_student_tree" model="ir.ui.view">
@@ -71,22 +125,103 @@
             <field name="model">school.management.student</field>
             <field name="arch" type="xml">
                 <tree string="Student">
-                        <field name="name"/>
-                        <field name="standard_division"/>
-                        <!-- <field name="roll_number"/> -->
-                        <field name="enrollment_number"/>
-                        <field name="phone_number"/>
-                        <!-- <field name="date_of_birth"/> -->
-                        <field name="stream"/>
-                        <field name="age"/>
-                        <field name="parent_name"/>
-                        <field name="parent_phone_number"/>
-                        <field name="school_name"/>
-                        <field name="class_teacher" widget="Many2one_link"/>
+                    <field name="name"/>
+                    <field name="standard_division"/>
+                    <field name="enrollment_number"/>
+                    <field name="phone_number"/>
+                    <field name="fee_status"/>
+                    <field name="roll_number"/>
+                    <field name="status"/>
+                    <field name="stream"/>
+                    <field name="age"/>
+                    <field name="parent_name"/>
+                    <field name="parent_phone_number"/>
+                    <field name="school_name"/>
+                    <field name="class_teacher" widget="Many2one_link"/>
                 </tree>
             </field>
         </record>
-                 
+
+        <record id="view_school_management_student_kanban" model="ir.ui.view">
+            <field name="name">school.management.student.kanban</field>
+            <field name="model">school.management.student</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="standard_division"/>
+                    <field name="enrollment_number"/>
+                    <field name="phone_number"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-click="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <ul>
+                                        <li>
+                                            <field name="name"/>
+                                        </li>
+                                        <li>
+                                            <field name="standard_division"/>
+                                        </li>
+                                        <li>
+                                            <field name="enrollment_number"/>
+                                        </li>
+                                        <li>
+                                            <field name="phone_number"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record id="view_student_graph" model="ir.ui.view">
+            <field name="name">school.management.student.graph</field>
+            <field name="model">school.management.student</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="name"/>
+                    <field name="date_of_birth"/>
+                    <field name="is_good"/>
+                    <field name="gender" placeholder="Select"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_library_form" model="ir.ui.view">
+            <field name="name">school.management.library.form</field>
+            <field name="model">school.management.library</field>
+            <field name="arch" type="xml">
+                <form string="Library">
+                    <sheet>
+                        <group>
+                            <field name="name_enrol"/>
+                            <field name="book_name"/>
+                            <field name="book_id"/>
+                            <field name="issue_date"/>
+                            <field name="return_date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_library_tree" model="ir.ui.view">
+            <field name="name">school.management.library.tree</field>
+            <field name="model">school.management.library</field>
+            <field name="arch" type="xml">
+                <tree string="Library">
+                    <field name="name_enrol"/>
+                    <field name="book_name"/>
+                    <field name="book_id"/>
+                    <field name="issue_date"/>
+                    <field name="return_date"/>
+                </tree>
+            </field>
+        </record>
 
         <record id="view_school_management_student_search" model="ir.ui.view">
             <field name="name">school.management.student.search</field>
@@ -111,9 +246,16 @@
             <field name="name">Students List</field>
             <field name="res_model">school.management.student</field>
             <field name="context">{'search_default_filter_10th': 1}</field>
+            <field name="view_mode">tree,form,graph,kanban</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_library_submit">
+            <field name="name">Library</field>
+            <field name="res_model">school.management.library</field>
             <field name="view_mode">tree,form</field>
         </record>
-        
+
+
         <record model="ir.actions.act_window" id="action_teacher">
             <field name="name">Teachers</field>
             <field name="res_model">school.management.teacher</field>
@@ -123,6 +265,7 @@
             <field name="name">Science Students</field>
             <field name="res_model">school.management.student</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{'default_stream' : 'science'}</field>
             <field name="domain">[('stream', '=', 'science')]</field>
         </record>
 
@@ -130,23 +273,25 @@
             <field name="name">Commerce Students</field>
             <field name="res_model">school.management.student</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{'default_stream' : 'commerce'}</field>
             <field name="domain">[('stream', '=', 'commerce')]</field>
         </record>
         <record id="action_school_student_arts" model="ir.actions.act_window">
             <field name="name">Arts Students</field>
             <field name="res_model">school.management.student</field>
             <field name="view_mode">tree,form</field>
+            <field name="context">{'default_stream' : 'arts'}</field>
             <field name="domain">[('stream', '=', 'arts')]</field>
         </record>
 
+
         <menuitem id="menu_student_details" name="School Management" sequence="10"/>
+        <menuitem id="menu_library_details" name="Library" parent="menu_student_details" action="action_library_submit"/>
         <menuitem id="teacher_data" name="Teachers" parent="menu_student_details" action="action_teacher"/>
         <menuitem id="menu_data" name="Streams" parent="menu_student_details" action="action_submit" />
         <menuitem id="menu_school_student_science" name="Science Students" parent="menu_data" action="action_school_student_science" />
         <menuitem id="menu_school_student_commerce" name="Commerce Students" parent="menu_data" action="action_school_student_commerce" />
         <menuitem id="menu_school_student_arts" name="Arts Students" parent="menu_data" action="action_school_student_arts" />
-        
-        
-       
+
     </data>
 </odoo>

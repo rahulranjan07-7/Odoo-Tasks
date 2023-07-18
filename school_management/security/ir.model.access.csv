@@ -1,3 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 school_student_id,student_name,model_school_management_student,,1,1,1,1
 school_management.access_school_management_teacher,access_school_management_teacher,school_management.model_school_management_teacher,base.group_user,1,1,1,1
+access_create_school_info_wizard,access_create_school_info.wizard,model_create_school_info_wizard,,1,1,1,1
+librarian_id,librarian_name,model_school_management_library,,1,1,1,1
+access.school.payments,access_school_payments,model_school_payments,,1,1,1,1
+access.school.management.hobbies,access_school_management_hobbies,model_school_management_hobbies,,1,1,1,1
