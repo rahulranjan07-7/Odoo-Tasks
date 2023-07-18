@@ -184,6 +184,8 @@ class SchoolManagement(models.Model):
             rec.status = 'selected'
 
 
+
+
     def change_status_to_rejected(self):
         for rec in self:
             rec.status == 'applied' or 'selected'
