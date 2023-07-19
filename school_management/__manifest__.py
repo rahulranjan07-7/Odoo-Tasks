@@ -1,8 +1,9 @@
 {
 'name': 'School Management',
 'version': '16.0',
-'author': 'Rahul Ranjan',
 'depends': ['base', 'mail', 'sale_management'],
+'author': 'Rahul Ranjan',
+'sequence': '1',
 'category': 'Education System',
 'description': 'storing students information',
 'website': 'https://www.smschool.com',
@@ -12,7 +13,6 @@
         'views/school.xml',
         'views/payment_view.xml',
         'views/salesmodel.xml',
-        # 'views/invoicingmodel.xml',
         'views/demo.xml',
         ],
         'installable': True,

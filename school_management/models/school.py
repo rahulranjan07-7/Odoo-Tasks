@@ -25,6 +25,8 @@ class SchoolManagement(models.Model):
     
     roll_number = fields.Char(string='Roll Number')
 
+    active = fields.Boolean(default=True)
+
     image = fields.Binary(string='Student Image')
 
     fee_status = fields.Selection([
@@ -212,7 +214,7 @@ class SchoolManagement(models.Model):
     @api.model
     def search(self, args, offset = 0, limit = None, order = None, count = False):
         args += ['|', ('payment_status', '=', 'paid'), ('status', '=', 'selected')]
-        offset, limit, order = 3,5, 'name ASC'
+        # offset, limit, order = 3,5, 'name ASC'
         return super(SchoolManagement, self).search(args, offset, limit, order, count)
     
     @api.returns('self', lambda value: value.id) 

@@ -31,6 +31,7 @@
                                     <field name="phone_number"/>
                                     <field name="birth_month"/>
                                     <field name="roll_number"/>
+                                    <field name="active"/>
                                 </group>
                             </div>
                             <div style="margin-right: 20px;">
@@ -142,6 +143,17 @@
             </field>
         </record>
 
+        <record id="view_school_management_student_pivot" model="ir.ui.view">
+            <field name="name">school.management.student.pivot</field>
+            <field name="model">school.management.student</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="name"/>
+                    <field name="standard_division"/>
+                </pivot>
+            </field>
+        </record>
+
         <record id="view_school_management_student_kanban" model="ir.ui.view">
             <field name="name">school.management.student.kanban</field>
             <field name="model">school.management.student</field>
@@ -246,7 +258,7 @@
             <field name="name">Students List</field>
             <field name="res_model">school.management.student</field>
             <field name="context">{'search_default_filter_10th': 1}</field>
-            <field name="view_mode">tree,form,graph,kanban</field>
+            <field name="view_mode">tree,form,graph,kanban,pivot</field>
         </record>
 
         <record model="ir.actions.act_window" id="action_library_submit">
