@@ -165,11 +165,11 @@
                     <field name="phone_number"/>
                     <templates>
                         <t t-name="kanban-box">
-                            <div t-attf-click="oe_kanban_global_click">
+                            <div class="oe_kanban_global_click">
                                 <div class="oe_kanban_details">
                                     <ul>
                                         <li>
-                                            <field name="name"/>
+                                            <h4><field name="name"/></h4>
                                         </li>
                                         <li>
                                             <field name="standard_division"/>
@@ -245,8 +245,18 @@
                     <group expand="0" string="Group By">
                         <filter string="Birth Month" name="birth_month" context="{'group_by': 'birth_month'}"/>
                     </group>
+
+                    <field name="date_of_birth" string="Date Of Birth"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Date Of Birth" name="date_of_birth" context="{'group_by': 'date_of_birth'}"/>
+                    </group>
+
                     <field name="standard_division" string="Standard &amp; Division"/>
                     <filter name="filter_10th" string="10th Standard" domain="[('standard_division', '=', '10 A')]"/>
+
+                    <field name="date_of_birth" string="Date Of Birth"/>
+                    <filter name="filter_10/12/2008" string="Date Filter" domain="[('date_of_birth', '=', '10/12/2008')]"/>
                 </search>
             </field>
         </record>

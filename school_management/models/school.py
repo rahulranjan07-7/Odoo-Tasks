@@ -367,7 +367,6 @@ class LibraryManagement(models.Model):
     _description = 'Library Management'
 
     name_enrol = fields.Many2one('school.management.student', string='Name and Enroll')
-    student_name = fields.Char(string='Student Name', compute='_compute_student_name')
     book_name = fields.Char(string='Book Name')
     book_id = fields.Char(string='Book ID')
     issue_date = fields.Date()
