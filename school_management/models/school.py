@@ -11,15 +11,15 @@ class SchoolManagement(models.Model):
     _rec_name = 'enrollment_number'
 
 
-    student_name = fields.Many2one('school.management.student', string='Student Name')
+    student_name = fields.Many2one('school.management.student', string = 'Student Name')
 
-    name = fields.Char(string='Name',required=True)
+    name = fields.Char(string='Name', required=True)
 
     standard_division = fields.Char(string='Standard & Division')
 
     active = fields.Boolean('Active', default=True)
 
-    company_id = fields.Many2one('res.company',string='Company',default=lambda self:self.env.company)
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self:self.env.company)
 
     currency_id = fields.Many2one('res.currency', related = 'company_id.currency_id')
     
@@ -93,7 +93,7 @@ class SchoolManagement(models.Model):
         ('10', 'October'),
         ('11', 'November'),
         ('12', 'December'),
-        ], string='Birth Month', compute='_compute_birth_month', store=True) 
+        ], string='Birth Month', compute='_compute_birth_month', store=True)
     
     @api.depends('date_of_birth') 
     def _compute_birth_month(self): 
@@ -289,11 +289,11 @@ class SchoolManagement(models.Model):
             else:
                 record.age = 0 
 
-    @api.constrains('name')
-    def check_name(self): 
-        for rec in self:    
-            if not 5 <= len(rec.name) <= 15 or not re.match(r"^[a-zA-Z][ a-zA-Z]*", rec.name):
-                raise ValidationError(('Name field only contain 10-15 alphabets and spaces')) 
+    # @api.constrains('name')
+    # def check_name(self): 
+    #     for rec in self:    
+    #         if not 5 <= len(rec.name) <= 15 or not re.match(r"^[a-zA-Z][ a-zA-Z]*", rec.name):
+    #             raise ValidationError(('Name field only contain 10-15 alphabets and spaces')) 
 
     @api.depends('name')
     def _compute_enrollment_number(self):
@@ -379,7 +379,7 @@ class HobbiesDetails(models.Model):
 
     fav_sports = fields.Char(string='Fav Sports')
     no_of_sports = fields.Integer(string='No. of Sports')
-    enrollment_number = fields.Many2one('school.management.student', string='Enrollment')
+    enrollment_number = fields.Many2one('school.management.student', string='Enrollment ')
     currency_id = fields.Many2one('res.currency', related='enrollment_number.currency_id')
     sports_fee = fields.Integer(string='Sports Fee')
     fee_sub_total = fields.Monetary(string='Subtotal', compute= '_compute_fee_sub_total', store=False)
@@ -389,4 +389,4 @@ class HobbiesDetails(models.Model):
     def _compute_fee_sub_total(self):
         for rec in self:
             rec.fee_sub_total = rec.no_of_sports * rec.sports_fee
-        # print ("vvvvvveuhrbfuher",rec.fee_sub_total)
+            print (rec.fee_sub_total)
