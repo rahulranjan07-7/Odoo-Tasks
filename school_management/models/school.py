@@ -11,15 +11,15 @@ class SchoolManagement(models.Model):
     _rec_name = 'enrollment_number'
 
 
-    student_name = fields.Many2one('school.management.student', string = 'Student Name')
+    student_name = fields.Many2one('school.management.student', string='Student Name')
 
-    name = fields.Char(string='Name', required=True)
+    name = fields.Char(string='Name',required=True)
 
     standard_division = fields.Char(string='Standard & Division')
 
     active = fields.Boolean('Active', default=True)
 
-    company_id = fields.Many2one('res.company', string='Company', default=lambda self:self.env.company)
+    company_id = fields.Many2one('res.company',string='Company',default=lambda self:self.env.company)
 
     currency_id = fields.Many2one('res.currency', related = 'company_id.currency_id')
     
@@ -379,13 +379,14 @@ class HobbiesDetails(models.Model):
 
     fav_sports = fields.Char(string='Fav Sports')
     no_of_sports = fields.Integer(string='No. of Sports')
-    enrollment_number = fields.Many2one('school.management.student', string='Enrollment ')
+    enrollment_number = fields.Many2one('school.management.student', string='Enrollment')
     currency_id = fields.Many2one('res.currency', related='enrollment_number.currency_id')
     sports_fee = fields.Integer(string='Sports Fee')
-    fee_sub_total = fields.Monetary(string='Subtotal', compute= '_compute_fee_sub_total')
+    fee_sub_total = fields.Monetary(string='Subtotal', compute= '_compute_fee_sub_total', store=False)
 
 
-    @api.depends('no_of_sports', 'sports_fee')
+    # @api.depends('no_of_sports', 'sports_fee')
     def _compute_fee_sub_total(self):
         for rec in self:
             rec.fee_sub_total = rec.no_of_sports * rec.sports_fee
+        # print ("vvvvvveuhrbfuher",rec.fee_sub_total)

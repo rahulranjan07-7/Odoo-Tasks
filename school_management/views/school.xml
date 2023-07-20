@@ -31,7 +31,7 @@
                                     <field name="phone_number"/>
                                     <field name="birth_month"/>
                                     <field name="roll_number"/>
-                                    <field name="active"/>
+                                    <field name="active" widget="toggle_button"/>
                                 </group>
                             </div>
                             <div style="margin-right: 20px;">
@@ -122,7 +122,7 @@
 
 
         <record id="view_student_tree" model="ir.ui.view">
-            <field name="name">Product Tree View</field>
+            <field name="name">school.management.student.tree</field>
             <field name="model">school.management.student</field>
             <field name="arch" type="xml">
                 <tree string="Student">
