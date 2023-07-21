@@ -21,7 +21,7 @@
                                     <field name='student_name'/>
                                     <field name="name"/>
                                     <field name="date_of_birth"/>
-                                    <field name="is_good" attrs="{'invisible': [('is_good', '=', False)]}"/>
+                                    <field name="is_good" attrs="{'invisible': [('is_good', '=', False)]}" widget="boolean_toggle"/>
                                     <field name="gender" placeholder="Select"/>
                                 </group>
                             </div>
@@ -31,7 +31,7 @@
                                     <field name="phone_number"/>
                                     <field name="birth_month"/>
                                     <field name="roll_number"/>
-                                    <field name="active" widget="toggle_button"/>
+                                    <field name="active" widget="boolean_toggle"/>
                                 </group>
                             </div>
                             <div style="margin-right: 20px;">
@@ -123,7 +123,9 @@
             <field name="name">school.management.student.tree</field>
             <field name="model">school.management.student</field>
             <field name="arch" type="xml">
-                <tree string="Student">
+
+                <tree decoration-success = "status == 'selected'" decoration-danger = "status == 'rejected'"
+                decoration-info = "status == 'applied'">
                     <field name="name"/>
                     <field name="standard_division"/>
                     <field name="enrollment_number"/>

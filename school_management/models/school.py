@@ -352,14 +352,14 @@ class SchoolManagementTeacher(models.Model):
     student_id = fields.One2many('school.management.student', 'class_teacher', string='students')
 
 
-class Partner (models.Model):
-    _inherit = "res.partner"
+# class Partner (models.Model):
+#     _inherit = "res.partner"
 
-    @api.model
-    def craeate(self, vals):
-        print("User Env.", self.env.context)
+#     @api.model
+#     def craeate(self, vals):
+#         print("User Env.", self.env.context)
 
-        return super(Partner, self).create(vals)
+#         return super(Partner, self).create(vals)
     
 
 class LibraryManagement(models.Model):
@@ -389,4 +389,3 @@ class HobbiesDetails(models.Model):
     def _compute_fee_sub_total(self):
         for rec in self:
             rec.fee_sub_total = rec.no_of_sports * rec.sports_fee
-            print (rec.fee_sub_total)
