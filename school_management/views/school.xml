@@ -126,6 +126,7 @@
 
                 <tree decoration-success = "status == 'selected'" decoration-danger = "status == 'rejected'"
                 decoration-info = "status == 'applied'">
+                    <field name="handle" widget="handle"/>
                     <field name="name"/>
                     <field name="standard_division"/>
                     <field name="enrollment_number"/>
@@ -158,11 +159,8 @@
             <field name="name">school.management.student.kanban</field>
             <field name="model">school.management.student</field>
             <field name="arch" type="xml">
-                <kanban>
-                    <field name="name"/>
-                    <field name="standard_division"/>
-                    <field name="enrollment_number"/>
-                    <field name="phone_number"/>
+                <kanban default_group_by="standard_division">
+                    <field name="handle" widget="handle"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click">
@@ -234,6 +232,12 @@
             </field>
         </record>
 
+        <record model="ir.actions.act_window" id="action_library_submit">
+            <field name="name">Library</field>
+            <field name="res_model">school.management.library</field>
+            <field name="view_mode">form,tree</field>
+        </record>
+
         <record id="view_school_management_student_search" model="ir.ui.view">
             <field name="name">school.management.student.search</field>
             <field name="model">school.management.student</field>
@@ -252,10 +256,10 @@
                     </group>
 
                     <field name="standard_division" string="Standard &amp; Division"/>
-                    <filter name="filter_10th" string="10th Standard" domain="[('standard_division', '=', '10 A')]"/>
+                    <filter name="filter_10th" string="10th Standard" domain="[('standard_division', 'like', '10')]"/>
 
                     <field name="date_of_birth" string="Date Of Birth"/>
-                    <filter name="filter_16/01/2000" string="Date Filter" domain="[('date_of_birth', '=', '16/01/2000')]"/>
+                    <filter name="filter_16/01/2000" string="Date Filter" domain="[('date_of_birth', '&gt;=', '16/01/2000')]"/>
                 </search>
             </field>
         </record>
@@ -267,11 +271,7 @@
             <field name="view_mode">tree,form,graph,kanban,pivot</field>
         </record>
 
-        <record model="ir.actions.act_window" id="action_library_submit">
-            <field name="name">Library</field>
-            <field name="res_model">school.management.library</field>
-            <field name="view_mode">tree,form</field>
-        </record>
+
         
         <record model="ir.actions.act_window" id="action_teacher">
             <field name="name">Teachers</field>

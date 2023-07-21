@@ -23,6 +23,11 @@ class SchoolManagement(models.Model):
 
     currency_id = fields.Many2one('res.currency', related = 'company_id.currency_id')
     
+    handle = fields.Integer()
+
+
+
+
     roll_number = fields.Char(string='Roll Number')
 
     active = fields.Boolean(default=True)
@@ -128,8 +133,8 @@ class SchoolManagement(models.Model):
 
     school_name = fields.Char(string= 'School Name',)
 
-    class_teacher = fields.Many2one('school.management.teacher', 
-                                    string= 'Class Teacher', compute='_onchange_stream', store=True)
+    class_teacher = fields.Many2one('school.management.teacher', compute='_onchange_standard_division',
+                                    string= 'Class Teacher', store=True)
 
     @api.constrains('phone_number')
     def _check_phone_number(self):
@@ -140,14 +145,7 @@ class SchoolManagement(models.Model):
             duplicate_records = self.search([('phone_number', '=', record.phone_number), ('id', '!=', record.id)]) 
             if duplicate_records: 
                 raise ValidationError("Phone number is already assigned to another student")
-
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     print(vals_list)
-    #     for vals in vals_list:
-    #       if 'roll_number' not in vals:
-    #         vals['roll_number'] = self.env['ir.sequence'].next_by_code('school.management.student') or '/'
-    #     return super(SchoolManagement, self).create(vals)
+            
 
     def unlink(self):
         if self.status == 'selected':
@@ -186,8 +184,6 @@ class SchoolManagement(models.Model):
             rec.status = 'selected'
 
 
-
-
     def change_status_to_rejected(self):
         for rec in self:
             rec.status == 'applied' or 'selected'
@@ -211,11 +207,11 @@ class SchoolManagement(models.Model):
          'Roll Number must be a unique.')
     ]
 
-    @api.model
-    def search(self, args, offset = 0, limit = None, order = None, count = False):
-        args += ['|', ('payment_status', '=', 'paid'), ('status', '=', 'selected')]
-        # offset, limit, order = 3,5, 'name ASC'
-        return super(SchoolManagement, self).search(args, offset, limit, order, count)
+    # @api.model
+    # def search(self, args, offset = 0, limit = None, order = None, count = False):
+    #     args += ['|', ('payment_status', '=', 'paid'), ('status', '=', 'selected')]
+    #     # offset, limit, order = 3,5, 'name ASC'
+    #     return super(SchoolManagement, self).search(args, offset, limit, order, count)
     
     @api.returns('self', lambda value: value.id) 
     def copy(self, default=None): 
@@ -313,34 +309,30 @@ class SchoolManagement(models.Model):
                 raise ValidationError("Invalid email address.")
 
 
-    @api.onchange('standard_division')
+    @api.depends('standard_division', 'stream')
     def _onchange_standard_division(self):
-        if self.standard_division:
-            if int(self.standard_division.split(" ")[0]) < 11:
-                teacher = self.env['school.management.teacher'].search([
-                    ('standard_division', '=', self.standard_division)
-                ], limit=1)
-                if teacher:
-                    self.class_teacher = teacher.id
+        for rec in self:
+            if rec.standard_division:
+                if int(rec.standard_division.split(" ")[0]) < 11:
+                    teacher = self.env['school.management.teacher'].search([
+                        ('standard_division', '=', self.standard_division)
+                    ], limit=1)
+                    if teacher:
+                        rec.class_teacher = teacher.id  
                 else:
-                    self.class_teacher = False
+                    if self.stream:
+                        print(self.stream, self.standard_division)
+                        teacher = self.env['school.management.teacher'].search([
+                            ('stream', '=', self.stream.lower()), ('standard_division', '=', str(self.standard_division))
+                        ])
+                        print(teacher)
+                        if teacher:
+                            self.class_teacher = teacher.id
             else:
                 self.class_teacher = False
 
-
-    @api.depends('stream')
-    def _onchange_stream(self):
-        if self.stream:
-            print(self.stream, self.standard_division)
-            teacher = self.env['school.management.teacher'].search([
-                ('stream', '=', self.stream.lower()), ('standard_division', '=', str(self.standard_division))
-            ])
-            print(teacher)
-            if teacher:
-                self.class_teacher = teacher.id
-                
             
-class SchoolManagementTeacher(models.Model): 
+class SchoolManagementTeacher(models.Model):
     _name = 'school.management.teacher' 
     _description = 'Teacher'
     
@@ -365,6 +357,7 @@ class SchoolManagementTeacher(models.Model):
 class LibraryManagement(models.Model):
     _name = 'school.management.library'
     _description = 'Library Management'
+    _rec_name = 'book_name'
 
     name_enrol = fields.Many2one('school.management.student', string='Name and Enroll')
     book_name = fields.Char(string='Book Name')
