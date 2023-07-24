@@ -235,7 +235,7 @@
         <record model="ir.actions.act_window" id="action_library_submit">
             <field name="name">Library</field>
             <field name="res_model">school.management.library</field>
-            <field name="view_mode">form,tree</field>
+            <field name="view_mode">tree,form</field>
         </record>
 
         <record id="view_school_management_student_search" model="ir.ui.view">
@@ -270,8 +270,7 @@
             <field name="context">{'search_default_filter_10th': 1}</field>
             <field name="view_mode">tree,form,graph,kanban,pivot</field>
         </record>
-
-
+        
         
         <record model="ir.actions.act_window" id="action_teacher">
             <field name="name">Teachers</field>
