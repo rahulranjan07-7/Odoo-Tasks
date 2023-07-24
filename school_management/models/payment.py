@@ -12,6 +12,8 @@ class SchoolPayments(models.Model):
     
     amount = fields.Char(string= 'Paid amount', required=True, tracking=True)
 
+    handle = fields.Integer()
+
     payment_status=fields.Selection([
         ('paid',"Paid"),
         ('half paid',"Half Paid"),

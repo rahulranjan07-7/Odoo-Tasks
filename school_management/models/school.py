@@ -3,11 +3,28 @@ from odoo.exceptions import ValidationError
 import re
 from datetime import date
 
+class HobbiesDetails(models.Model):
+    _name = 'school.management.hobbies'
+    _description = 'Hobbies Details'
+
+    fav_sports = fields.Char(string='Fav Sports')
+    no_of_sports = fields.Integer(string='No. of Sports')
+    enrollment_number = fields.Many2one('school.management.student', string='Enrollment ')
+    currency_id = fields.Many2one('res.currency', related='enrollment_number.currency_id')
+    sports_fee = fields.Integer(string='Sports Fee')
+    fee_sub_total = fields.Monetary(string='Subtotal', compute= '_compute_fee_sub_total', store=False)
+
+
+
+    # @api.depends('no_of_sports', 'sports_fee')
+    def _compute_fee_sub_total(self):
+        for rec in self:
+            rec.fee_sub_total = rec.no_of_sports * rec.sports_fee
 
 class SchoolManagement(models.Model):
     _name = 'school.management.student'
     _description = 'Student'
-    _inherit = ['school.payments', 'mail.thread']
+    _inherit = ['school.payments', 'school.management.hobbies']
     _rec_name = 'enrollment_number'
 
 
@@ -17,6 +34,20 @@ class SchoolManagement(models.Model):
 
     standard_division = fields.Char(string='Standard & Division')
 
+    date_of_birth = fields.Date(string='Date of Birth')
+
+    is_good = fields.Boolean(string='Is Good Student?:')
+
+    gender = fields.Selection([
+        ('male', 'Male'), 
+        ('female', 'Female'), 
+        ('others', 'Others')
+        ], string = 'Gender:')
+    
+    age = fields.Integer(string='Age', compute='_compute_age', store=True)
+
+    phone_number = fields.Char(string='Phone Number', required=True, tracking=True)
+    
     active = fields.Boolean('Active', default=True)
 
     company_id = fields.Many2one('res.company', string='Company', default=lambda self:self.env.company)
@@ -24,9 +55,6 @@ class SchoolManagement(models.Model):
     currency_id = fields.Many2one('res.currency', related = 'company_id.currency_id')
     
     handle = fields.Integer()
-
-
-
 
     roll_number = fields.Char(string='Roll Number')
 
@@ -40,11 +68,6 @@ class SchoolManagement(models.Model):
         ('pending', 'Pending')
     ], string='Fee Status')
 
-    gender = fields.Selection([
-        ('male', 'Male'), 
-        ('female', 'Female'), 
-        ('others', 'Others')
-        ], string = 'Gender:')
 
     enrollment_number = fields.One2many('school.management.library')
 
@@ -56,7 +79,6 @@ class SchoolManagement(models.Model):
 
     zip_code = fields.Char(string='ZIP Code')
 
-    is_good = fields.Boolean(string='Is Good Student?:')
 
     country_id = fields.Many2one('res.country', default=lambda self: self.env.ref('base.in'), 
                                  string='Country', readonly= True)
@@ -66,11 +88,7 @@ class SchoolManagement(models.Model):
     
     address = fields.Text(string='Address', compute='_compute_address', store=True)
 
-    phone_number = fields.Char(string='Phone Number', required=True, tracking=True)
 
-    date_of_birth = fields.Date(string='Date of Birth')
-
-    age = fields.Integer(string='Age', compute='_compute_age', store=True)
 
     parent_name = fields.Char(string= 'Parent Name')
 
@@ -82,8 +100,28 @@ class SchoolManagement(models.Model):
         ('Others', 'Others')
     ])
 
+    status=fields.Selection([
+        ('applied',"Applied"),
+        ('selected',"Selected"),
+        ('rejected',"Rejected"),
+    ],string="Status",)
+
     hobbies_ids = fields.One2many('school.management.hobbies', 'enrollment_number', 
                                   string = ' hobbies ')
+    
+    total_hobby_fee = fields.Monetary(string='Total Hobby Fee', compute='_compute_total_hobby_fee', store=True)
+
+    @api.depends('hobbies_ids.fee_sub_total')
+    def _compute_total_hobby_fee(self):
+        sum=0
+        for student in self.hobbies_ids:
+            sum+=student.fee_sub_total
+
+        for rec in self:
+            rec.total_hobby_fee=sum
+        # for student in self:
+        #     total_hobby_fee = sum(student.hobbies_ids.mapped('fee_sub_total'))
+        #     student.total_hobby_fee = total_hobby_fee
     
     birth_month = fields.Selection([ 
         ('01', 'January'),
@@ -99,6 +137,8 @@ class SchoolManagement(models.Model):
         ('11', 'November'),
         ('12', 'December'),
         ], string='Birth Month', compute='_compute_birth_month', store=True)
+    
+
     
     @api.depends('date_of_birth') 
     def _compute_birth_month(self): 
@@ -119,22 +159,48 @@ class SchoolManagement(models.Model):
 
     email_address = fields.Char(string = 'Email Address')
 
+    progress_bar = fields.Integer(compute='_compute_progress_bar', string='Progress')
+
     previous_roll_number = fields.Char(string='Old Roll Number')
 
     admission_date = fields.Date(string='Admission Date')
 
     leaving_date = fields.Date(string='Leaving Date')
 
-    status=fields.Selection([
-        ('applied',"Applied"),
-        ('selected',"Selected"),
-        ('rejected',"Rejected"),
-    ],string="Status")
 
     school_name = fields.Char(string= 'School Name',)
 
     class_teacher = fields.Many2one('school.management.teacher', compute='_onchange_standard_division',
                                     string= 'Class Teacher', store=True)
+
+    @api.depends('name', 'standard_division', 'roll_number', 'enrollment_number', 'image',
+                 'fee_status', 'gender', 'street', 'city', 'zip_code', 'is_good',
+                 'country_id', 'state_id', 'phone_number', 'age', 'date_of_birth', 'parent_name', 'parent_phone_number',
+                 'active', 'birth_month', 'standard_division', 'status', 'relation_with_child', 'hobbies_ids', 'teacher_details',
+                 'email_address', 'previous_roll_number', 'admission_date', 'leaving_date', 'school_name')
+    def _compute_progress_bar(self):
+     
+        fields_to_include = [
+                 'name', 'standard_division', 'roll_number', 'enrollment_number', 'image',
+                 'fee_status', 'gender', 'street', 'city', 'zip_code', 'is_good',
+                 'country_id', 'state_id', 'phone_number', 'age', 'date_of_birth', 'parent_name', 'parent_phone_number',
+                 'active', 'birth_month', 'standard_division', 'status', 'relation_with_child', 'hobbies_ids', 'teacher_details',
+                 'email_address', 'previous_roll_number', 'admission_date', 'leaving_date', 'school_name'
+        ]
+        total_fields = len(fields_to_include)
+        filled_fields = 0
+
+        for record in self:
+            for field_name in fields_to_include:
+                field_value = record[field_name]
+                if field_value:
+                    filled_fields += 1
+
+            if total_fields > 0:
+                progress_percentage = (filled_fields / total_fields) * 100
+                record.progress_bar = min(int(progress_percentage), 100)
+            else:
+                record.progress_bar = 0
 
     @api.constrains('phone_number')
     def _check_phone_number(self):
@@ -366,19 +432,3 @@ class LibraryManagement(models.Model):
     return_date = fields.Date()
 
 
-class HobbiesDetails(models.Model):
-    _name = 'school.management.hobbies'
-    _description = 'Hobbies Details'
-
-    fav_sports = fields.Char(string='Fav Sports')
-    no_of_sports = fields.Integer(string='No. of Sports')
-    enrollment_number = fields.Many2one('school.management.student', string='Enrollment ')
-    currency_id = fields.Many2one('res.currency', related='enrollment_number.currency_id')
-    sports_fee = fields.Integer(string='Sports Fee')
-    fee_sub_total = fields.Monetary(string='Subtotal', compute= '_compute_fee_sub_total', store=False)
-
-
-    # @api.depends('no_of_sports', 'sports_fee')
-    def _compute_fee_sub_total(self):
-        for rec in self:
-            rec.fee_sub_total = rec.no_of_sports * rec.sports_fee

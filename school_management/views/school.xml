@@ -18,11 +18,13 @@
                         <div style="display: flex;">
                             <div style="margin-right: 20px;">
                                 <group>
+                                    <field name="progress_bar" widget="progressbar"/>
                                     <field name='student_name'/>
                                     <field name="name"/>
                                     <field name="date_of_birth"/>
-                                    <field name="is_good" attrs="{'invisible': [('is_good', '=', False)]}" widget="boolean_toggle"/>
-                                    <field name="gender" placeholder="Select"/>
+                                    <field name="is_good" widget="boolean_toggle"/>
+                                    <field name="gender" placeholder="Select"/>  
+                                    <field name="total_hobby_fee"/>                                
                                 </group>
                             </div>
                             <div style="margin-right: 20px;">
@@ -40,7 +42,7 @@
                                     <field name="stream" attrs="{'invisible': [('standard_division', 'not in', ('11','12'))]}"/>
                                     <field name="class_teacher" widget="Many2one_link"/>
                                     <field name='payment_status'/>
-                                    <field name="status"/>
+                                    <field name="status" placeholder="Select"/>
                                 </group>
                             </div>
                         </div>
@@ -97,6 +99,7 @@
                                             <field name="enrollment_number"/>
                                             <field name="sports_fee"/>
                                             <field name="fee_sub_total"/>
+                                            
                                         </group>
                                     </form>
                                 </field>
@@ -129,17 +132,16 @@
                     <field name="handle" widget="handle"/>
                     <field name="name"/>
                     <field name="standard_division"/>
+                    <field name="stream"/>
                     <field name="enrollment_number"/>
                     <field name="phone_number"/>
                     <field name="fee_status"/>
-                    <field name="roll_number"/>
                     <field name="status"/>
-                    <field name="stream"/>
                     <field name="age"/>
                     <field name="parent_name"/>
                     <field name="parent_phone_number"/>
-                    <field name="school_name"/>
                     <field name="class_teacher" widget="Many2one_link"/>
+                    <field name="total_hobby_fee"/>
                 </tree>
             </field>
         </record>

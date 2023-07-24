@@ -29,6 +29,7 @@
         <field name="model">school.payments</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="handle" widget="handle"/>
                 <field name='name_enroll'/>
                 <field name='amount'/>
                 <field name='payment_status'/>
