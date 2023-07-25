@@ -55,6 +55,7 @@
                                         <field name="relation_with_child"/>
                                         <field name="parent_phone_number"/>
                                         <field name="email_address"/>
+                                        <button name="action_url_to" string="okay" type="object" class="oe_highlight"/>
                                     </group>
                                 </div>
                             </page>
@@ -65,7 +66,7 @@
                                         <field name="previous_roll_number"/>
                                         <field name="admission_date"/>
                                         <field name="leaving_date"/>
-                                        <button name="action_url" string="Action" type="object" class="oe_highlight" />
+                                        <button name="action_url" string="Action" type="object" class="oe_highlight"/>
                                     </group>
                                 </div>
                             </page>

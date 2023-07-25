@@ -29,86 +29,54 @@ class SchoolManagement(models.Model):
 
 
     student_name = fields.Many2one('school.management.student', string = 'Student Name')
-
     name = fields.Char(string='Name', required=True)
-
     standard_division = fields.Char(string='Standard & Division')
-
     date_of_birth = fields.Date(string='Date of Birth')
-
     is_good = fields.Boolean(string='Is Good Student?:')
-
-    gender = fields.Selection([
+    
+    gender = fields.Selection(selection=[
         ('male', 'Male'), 
         ('female', 'Female'), 
         ('others', 'Others')
         ], string = 'Gender:')
-    
     age = fields.Integer(string='Age', compute='_compute_age', store=True)
-
     phone_number = fields.Char(string='Phone Number', required=True, tracking=True)
-    
     active = fields.Boolean('Active', default=True)
-
     company_id = fields.Many2one('res.company', string='Company', default=lambda self:self.env.company)
-
     currency_id = fields.Many2one('res.currency', related = 'company_id.currency_id')
-    
     handle = fields.Integer()
-
     roll_number = fields.Char(string='Roll Number')
-
     active = fields.Boolean(default=True)
-
     image = fields.Binary(string='Student Image')
-
-    fee_status = fields.Selection([
+    fee_status = fields.Selection(selection=[
         ('paid', 'Paid'), 
         ('half paid', 'Half Paid'), 
         ('pending', 'Pending')
     ], string='Fee Status')
-
-
     enrollment_number = fields.One2many('school.management.library')
-
     enrollment_number = fields.Char(string='Enrollment Number', compute='_compute_enrollment_number', store=True)
-
     street = fields.Char(string='Street')
-
     city = fields.Char(string='City')
-
     zip_code = fields.Char(string='ZIP Code')
-
-
     country_id = fields.Many2one('res.country', default=lambda self: self.env.ref('base.in'), 
                                  string='Country', readonly= True)
-    
     state_id = fields.Many2one('res.country.state', 
                                domain="[('country_id', '=', country_id)]")
-    
     address = fields.Text(string='Address', compute='_compute_address', store=True)
-
-
-
     parent_name = fields.Char(string= 'Parent Name')
-
     parent_phone_number = fields.Char(string='Parent Phone Number')
-
-    relation_with_child = fields.Selection([
+    relation_with_child = fields.Selection(selection=[
         ('Father', 'Father'), 
         ('Mother', 'Mother'), 
         ('Others', 'Others')
     ])
-
-    status=fields.Selection([
+    status=fields.Selection(selection=[
         ('applied',"Applied"),
         ('selected',"Selected"),
         ('rejected',"Rejected"),
     ],string="Status",)
-
     hobbies_ids = fields.One2many('school.management.hobbies', 'enrollment_number', 
                                   string = ' hobbies ')
-    
     total_hobby_fee = fields.Monetary(string='Total Hobby Fee', compute='_compute_total_hobby_fee', store=True)
 
     @api.depends('hobbies_ids.fee_sub_total')
@@ -123,7 +91,7 @@ class SchoolManagement(models.Model):
         #     total_hobby_fee = sum(student.hobbies_ids.mapped('fee_sub_total'))
         #     student.total_hobby_fee = total_hobby_fee
     
-    birth_month = fields.Selection([ 
+    birth_month = fields.Selection(selection=[ 
         ('01', 'January'),
         ('02', 'February'),
         ('03', 'March'),
@@ -149,7 +117,7 @@ class SchoolManagement(models.Model):
                 student.birth_month = False
 
 
-    stream = fields.Selection([
+    stream = fields.Selection(selection=[
         ('science', 'Science'), 
         ('arts', 'Arts'), 
         ('commerce', 'Commerce')
@@ -211,19 +179,33 @@ class SchoolManagement(models.Model):
             duplicate_records = self.search([('phone_number', '=', record.phone_number), ('id', '!=', record.id)]) 
             if duplicate_records: 
                 raise ValidationError("Phone number is already assigned to another student")
-            
 
     def unlink(self):
         if self.status == 'selected':
             raise ValidationError("You cannot delete a student record with 'Selected' status")
+        # records_to_delete = self.env['school.management.student'].search([('name', '=', 'okayyyyyyyyyyyy')])
         return super(SchoolManagement, self).unlink()
 
     def action_url(self):
         return{
             'type':'ir.actions.act_url',
-            'target':'self',
+            'target':'new',
             'url':'https://www.iima.ac.in/'
         }
+    
+    def action_url_to(self):
+        return{
+            'type':'ir.actions.act_url',
+            'target':'self',
+            'url':'https://online.2iim.com/CAT-question-paper/'
+        }
+
+    def write(self, vals):
+        for rec in self:
+            print(rec,'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
+            rr = rec.env['school.management.library'].browse([14])
+            rr.book_name='whgeufhgjwhegfghgjyhgujh'
+        super(SchoolManagement,self).write(vals)
 
 
     def change_status(self):
@@ -272,6 +254,7 @@ class SchoolManagement(models.Model):
         ('unique_roll_number', 'unique (roll_number)',
          'Roll Number must be a unique.')
     ]
+
 
     # @api.model
     # def search(self, args, offset = 0, limit = None, order = None, count = False):
@@ -351,27 +334,20 @@ class SchoolManagement(models.Model):
             else:
                 record.age = 0 
 
-    # @api.constrains('name')
-    # def check_name(self): 
-    #     for rec in self:    
-    #         if not 5 <= len(rec.name) <= 15 or not re.match(r"^[a-zA-Z][ a-zA-Z]*", rec.name):
-    #             raise ValidationError(('Name field only contain 10-15 alphabets and spaces')) 
-
     @api.depends('name')
     def _compute_enrollment_number(self):
         
         for record in self:
             if record.name:
                 record.enrollment_number = 'ENR-' + str(record.id).zfill(6)
-                
             else:
                 record.enrollment_number = ''
 
 
     @api.constrains('email_address') 
     def check_email_address(self): 
-        for visitor in self: 
-            if visitor.email_address and '@' not in visitor.email_address: 
+        for record in self: 
+            if record.email_address and '@' not in record.email_address: 
                 raise ValidationError("Invalid email address.")
 
 
@@ -430,5 +406,3 @@ class LibraryManagement(models.Model):
     book_id = fields.Char(string='Book ID')
     issue_date = fields.Date()
     return_date = fields.Date()
-
-

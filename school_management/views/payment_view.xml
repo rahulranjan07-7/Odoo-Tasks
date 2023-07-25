@@ -28,7 +28,7 @@
         <field name="name">school.payments.tree</field>
         <field name="model">school.payments</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree default_order='amount DESC'>
                 <field name="handle" widget="handle"/>
                 <field name='name_enroll'/>
                 <field name='amount'/>
