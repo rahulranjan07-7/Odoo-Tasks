@@ -128,20 +128,17 @@
             <field name="model">school.management.student</field>
             <field name="arch" type="xml">
 
-                <tree decoration-success = "status == 'selected'" decoration-danger = "status == 'rejected'"
-                decoration-info = "status == 'applied'">
+                <tree>
                     <field name="handle" widget="handle"/>
                     <field name="name"/>
                     <field name="standard_division"/>
+                    <field name="create_date"/>
+                    <field name="write_date"/>
                     <field name="stream"/>
                     <field name="enrollment_number"/>
                     <field name="phone_number"/>
                     <field name="fee_status"/>
                     <field name="status"/>
-                    <field name="age"/>
-                    <field name="parent_name"/>
-                    <field name="parent_phone_number"/>
-                    <field name="class_teacher" widget="Many2one_link"/>
                     <field name="total_hobby_fee"/>
                 </tree>
             </field>
