@@ -23,8 +23,8 @@
                                     <field name="name"/>
                                     <field name="date_of_birth"/>
                                     <field name="is_good" widget="boolean_toggle"/>
-                                    <field name="gender" placeholder="Select"/>  
-                                    <field name="total_hobby_fee"/>                                
+                                    <field name="gender" placeholder="Select"/>
+                                    <field name="total_hobby_fee"/>
                                 </group>
                             </div>
                             <div style="margin-right: 20px;">
@@ -100,7 +100,7 @@
                                             <field name="enrollment_number"/>
                                             <field name="sports_fee"/>
                                             <field name="fee_sub_total"/>
-                                            
+
                                         </group>
                                     </form>
                                 </field>
@@ -170,7 +170,9 @@
                                 <div class="oe_kanban_details">
                                     <ul>
                                         <li>
-                                            <h4><field name="name"/></h4>
+                                            <h4>
+                                                <field name="name"/>
+                                            </h4>
                                         </li>
                                         <li>
                                             <field name="standard_division"/>
@@ -195,10 +197,10 @@
             <field name="model">school.management.student</field>
             <field name="arch" type="xml">
                 <graph>
-                    <field name="name"/>
-                    <field name="date_of_birth"/>
-                    <field name="is_good"/>
-                    <field name="gender" placeholder="Select"/>
+                    <field name="name" type="row"/>
+                    <field name="age" type="measure"/>
+                    <field name="age" type="col"/>
+
                 </graph>
             </field>
         </record>
@@ -273,8 +275,8 @@
             <field name="context">{'search_default_filter_10th': 1}</field>
             <field name="view_mode">tree,form,graph,kanban,pivot</field>
         </record>
-        
-        
+
+
         <record model="ir.actions.act_window" id="action_teacher">
             <field name="name">Teachers</field>
             <field name="res_model">school.management.teacher</field>

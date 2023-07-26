@@ -8,9 +8,9 @@ class SchoolPayments(models.Model):
     _log_access = False
 
     name_enroll = fields.Many2one('school.management.student', 
-                                  string = 'Name and Enroll.', required=True, tracking=True)
+                                  string = 'Name and Enroll.', tracking=True)
     
-    amount = fields.Char(string= 'Paid amount', required=True, tracking=True)
+    amount = fields.Char(string= 'Paid amount', tracking=True)
 
     handle = fields.Integer()
 
@@ -18,9 +18,9 @@ class SchoolPayments(models.Model):
         ('paid',"Paid"),
         ('half paid',"Half Paid"),
         ('unpaid',"Unpaid"),
-    ],string="Payment Status", required=True, tracking=True)
+    ],string="Payment Status", tracking=True)
     
-    student_dig_sign= fields.Char(string='Student E-Sign', required=True)
+    student_dig_sign= fields.Char(string='Student E-Sign')
 
     @api.ondelete(at_uninstall=False)
     def _check_payments(self):

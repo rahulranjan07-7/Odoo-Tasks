@@ -11,10 +11,8 @@ class HobbiesDetails(models.Model):
     no_of_sports = fields.Integer(string='No. of Sports')
     enrollment_number = fields.Many2one('school.management.student', string='Enrollment ')
     currency_id = fields.Many2one('res.currency', related='enrollment_number.currency_id')
-    sports_fee = fields.Integer(string='Sports Fee')
+    sports_fee = fields.Float(string='Sports Fee')
     fee_sub_total = fields.Monetary(string='Subtotal', compute= '_compute_fee_sub_total', store=False)
-
-
 
     # @api.depends('no_of_sports', 'sports_fee')
     def _compute_fee_sub_total(self):
@@ -24,7 +22,7 @@ class HobbiesDetails(models.Model):
 class SchoolManagement(models.Model):
     _name = 'school.management.student'
     _description = 'Student'
-    _inherit = ['school.payments', 'school.management.hobbies']
+    _inherit = ['school.payments']
     _rec_name = 'enrollment_number'
 
 
@@ -87,9 +85,6 @@ class SchoolManagement(models.Model):
 
         for rec in self:
             rec.total_hobby_fee=sum
-        # for student in self:
-        #     total_hobby_fee = sum(student.hobbies_ids.mapped('fee_sub_total'))
-        #     student.total_hobby_fee = total_hobby_fee
     
     birth_month = fields.Selection(selection=[ 
         ('01', 'January'),
@@ -183,7 +178,6 @@ class SchoolManagement(models.Model):
     def unlink(self):
         if self.status == 'selected':
             raise ValidationError("You cannot delete a student record with 'Selected' status")
-        # records_to_delete = self.env['school.management.student'].search([('name', '=', 'okayyyyyyyyyyyy')])
         return super(SchoolManagement, self).unlink()
 
     def action_url(self):
@@ -202,9 +196,8 @@ class SchoolManagement(models.Model):
 
     def write(self, vals):
         for rec in self:
-            print(rec,'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
             rr = rec.env['school.management.library'].browse([14])
-            rr.book_name='whgeufhgjwhegfghgjyhgujh'
+            rr.book_name='diuhifhgdfhg'
         super(SchoolManagement,self).write(vals)
 
 
