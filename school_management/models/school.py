@@ -25,7 +25,6 @@ class SchoolManagement(models.Model):
     _inherit = ['school.payments']
     _rec_name = 'enrollment_number'
 
-
     student_name = fields.Many2one('school.management.student', string = 'Student Name')
     name = fields.Char(string='Name', required=True)
     standard_division = fields.Char(string='Standard & Division')
@@ -275,10 +274,12 @@ class SchoolManagement(models.Model):
         return students_list
         
     @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
+    def name_search(self, name='', args=None, operator='like', limit=100):
         if args is None:
             args = []
-        domain = args + ['|', '|', ('phone_number', operator, name), ('name', operator, name), ('enrollment_number', operator, name)]
+        operator='like'    
+        print(operator, 'opppp')
+        domain = args + [ ('name', operator, name)]
         return super(SchoolManagement, self).search(domain, limit=limit).name_get()
 
 
@@ -310,8 +311,8 @@ class SchoolManagement(models.Model):
 
     @api.constrains('zip_code')
     def _check_pincode_format(self):
-        for visitor in self:
-            if visitor.zip_code and not visitor.zip_code.isdigit() or len(visitor.zip_code) != 6:
+        for records in self:
+            if records.zip_code and not records.zip_code.isdigit() or len(records.zip_code) != 6:
                 raise ValidationError('Invalid pin code format!')
 
 
