@@ -9,7 +9,7 @@ class HobbiesDetails(models.Model):
 
     fav_sports = fields.Char(string='Fav Sports')
     no_of_sports = fields.Integer(string='No. of Sports')
-    enrollment_number = fields.Many2one('school.management.student', string='Enrollment ')
+    enrollment_number = fields.Many2one('school.management.student', string='Name and Enroll')
     currency_id = fields.Many2one('res.currency', related='enrollment_number.currency_id')
     sports_fee = fields.Float(string='Sports Fee', digits='Product Price')
     fee_sub_total = fields.Monetary(string='Subtotal', compute= '_compute_fee_sub_total', store=False)
@@ -71,7 +71,7 @@ class SchoolManagement(models.Model):
         ('applied',"Applied"),
         ('selected',"Selected"),
         ('rejected',"Rejected"),
-    ],string="Status",)
+    ],string="Status")
     hobbies_ids = fields.One2many('school.management.hobbies', 'enrollment_number', 
                                   string = ' hobbies ')
     total_hobby_fee = fields.Monetary(string='Total Hobby Fee', digits='Product Price', compute='_compute_total_hobby_fee', store=True)

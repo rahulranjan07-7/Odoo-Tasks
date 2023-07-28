@@ -8,7 +8,7 @@ class SchoolPayments(models.Model):
     _log_access = False
 
     name_enroll = fields.Many2one('school.management.student', 
-                                  string = 'Name and Enroll.', tracking=True)
+                                  string = 'Name and Enroll', tracking=True)
     
     amount = fields.Char(string= 'Paid amount', tracking=True)
 
