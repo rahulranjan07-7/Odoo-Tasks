@@ -128,18 +128,19 @@
             <field name="model">school.management.student</field>
             <field name="arch" type="xml">
 
-                <tree>
+                <tree sample="1" multi_edit="1">
                     <field name="handle" widget="handle"/>
-                    <field name="name"/>
-                    <field name="standard_division"/>
-                    <field name="create_date"/>
-                    <field name="write_date"/>
-                    <field name="stream"/>
-                    <field name="enrollment_number"/>
-                    <field name="phone_number"/>
-                    <field name="fee_status"/>
-                    <field name="status"/>
-                    <field name="total_hobby_fee"/>
+                    <field name="name" optional="show"/>
+                    <field name="standard_division" optional="show"/>
+                    <field name="create_date" optional="show"/>
+                    <field name="write_date" optional="show"/>
+                    <field name="stream" optional="show"/>
+                    <field name="enrollment_number" optional="show"/>
+                    <field name="phone_number" optional="show"/>
+                    <field name="fee_status" optional="show"/>
+                    <field name="status" optional="hide"/>
+                    <field name="total_hobby_fee" optional="hide"/>
+                    
                 </tree>
             </field>
         </record>

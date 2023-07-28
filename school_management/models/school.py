@@ -279,8 +279,9 @@ class SchoolManagement(models.Model):
             args = []
         operator='like'    
         print(operator, 'opppp')
-        domain = args + [ ('name', operator, name)]
+        domain = args + ['|', '|', ('name', operator, name), ('enrollment_number', operator, name), ('phone_number', operator, name)]
         return super(SchoolManagement, self).search(domain, limit=limit).name_get()
+
 
 
     @api.depends('date_of_birth')
@@ -373,21 +374,21 @@ class SchoolManagementTeacher(models.Model):
     _description = 'Teacher'
     
     name = fields.Char(string='Name', required=True)
-    standard_division = fields.Char(string='Standard & Division', required=True) 
+    standard_division = fields.Char(string='Standard & Division') 
     stream= fields.Selection(selection=[('science','Science'),
                                         ('commerce','Commerce'),
                                         ('arts','Arts')])
     student_id = fields.One2many('school.management.student', 'class_teacher', string='students')
 
 
-# class Partner (models.Model):
-#     _inherit = "res.partner"
+class Partner (models.Model):
+    _inherit = "res.partner"
 
-#     @api.model
-#     def craeate(self, vals):
-#         print("User Env.", self.env.context)
+    @api.model
+    def create(self, vals):
+        print("User Env.", self.env.context)
 
-#         return super(Partner, self).create(vals)
+        return super(Partner, self).create(vals)
     
 
 class LibraryManagement(models.Model):
