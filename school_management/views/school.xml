@@ -6,8 +6,12 @@
             <field name="model">school.management.student</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <button name="action_send_card" type="object" string="Send Email" class="oe_highlight"/>
+                    </header>
                     <sheet>
-                        <field name="image" widget="image" class="oe_avatar"/>
+                        <field name="student_image" widget="image" class="oe_avatar"/>
+                        <field name="class_teacher_image" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
                             <div>
                                 <h1>
@@ -85,32 +89,68 @@
                             </page>
                             <page string="Hobbies Details">
                                 <field name="hobbies_ids">
-                                    <tree>
-                                        <field name="fav_sports"/>
-                                        <field name="no_of_sports"/>
-                                        <field name="enrollment_number"/>
-                                        <field name="currency_id" invisible="1"/>
-                                        <field name="sports_fee"/>
-                                        <field name="fee_sub_total"/>
-                                    </tree>
+                                    <kanban>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_global_click">
+                                                <div class="oe_kanban_details">
+                                                    <ul>
+                                                        <li>
+                                                            <field name="hobby_image" widget="image" class="oe_avatar"/>
+                                                        </li>
+                                                        <li>
+                                                            <h4>
+                                                                <field name="fav_sports"/>
+                                                            </h4>
+                                                        </li>
+                                                        <li>
+                                                            <field name="no_of_sports"/>
+                                                        </li>
+                                                        <li>
+                                                            <field name="sports_fee"/>
+                                                        </li>
+                                                        <li>
+                                                            <field name="enrollment_number"/>
+                                                        </li>
+                                                        <li>
+                                                            <field name="fee_sub_total"/>
+                                                        </li>
+                                                        <li>
+                                                            <field name="currency_id"/>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </kanban>
                                     <form>
                                         <group>
+                                            <field name="hobby_image" widget="image" class="oe_avatar"/>
                                             <field name="fav_sports"/>
                                             <field name="no_of_sports"/>
                                             <field name="enrollment_number"/>
                                             <field name="sports_fee"/>
+                                            <field name="currency_id"/>
                                             <field name="fee_sub_total"/>
-
                                         </group>
                                     </form>
                                 </field>
                             </page>
                             <page string="Teacher Details">
-                                <form>
-                                    <group>
-                                        <field name="teacher_details"/>
-                                    </group>
-                                </form>
+                                <kanban>
+                                    <t t-name="kanban-box">
+                                        <div t-attf-class="oe_kanban_global_click">
+                                            <div class="oe_kanban_details">
+                                                <ul>
+                                                    <li>
+                                                        <h4>
+                                                            <field name="teacher_details"/>
+                                                        </h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </kanban>
                             </page>
 
                         </notebook>
@@ -138,9 +178,8 @@
                     <field name="enrollment_number" optional="show"/>
                     <field name="phone_number" optional="show"/>
                     <field name="fee_status" optional="show"/>
-                    <field name="status" optional="hide"/>
-                    <field name="total_hobby_fee" optional="hide"/>
-                    
+                    <field name="status" optional="show"/>
+                    <field name="total_hobby_fee" optional="show"/>
                 </tree>
             </field>
         </record>
@@ -162,9 +201,13 @@
             <field name="arch" type="xml">
                 <kanban default_group_by="standard_division">
                     <field name="handle" widget="handle"/>
+                    <field name="id" />
                     <templates>
                         <t t-name="kanban-box">
-                            <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                                <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('school.management.student', 'student_image', record.id.raw_value)}')">
+                                        <img alt='student image' class="o_kanban_image_inner_pic" style="{height:10px; width:10px}" t-att-src="kanban_image('school.management.student', 'class_teacher_image', record.id.raw_value)"/>
+                                </div>
                                 <div class="oe_kanban_details">
                                     <ul>
                                         <li>
