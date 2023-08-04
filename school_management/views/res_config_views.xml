@@ -16,7 +16,7 @@
                                     <div class="o_setting_right_pane">
                                         <span class ="o_form_label">Director Name</span>
                                         <div class="text-muted content-group mt16">
-                                            <field name="director_name" class="text-center oe_inline"/>
+                                            <field name="director_name" class="oe_inline"/>
                                         </div>
                                     </div>
                             </div>
@@ -37,9 +37,9 @@
 
         <menuitem id="school_config_settings_menu" 
         name="Config Settings" 
-        action="school_config_settings_action" 
+        action="school_config_settings_action"  
         parent="menu_student_details" 
-        sequence="0" 
+        sequence="40" 
         groups="base.group_system"/>
 
     </data>

@@ -420,8 +420,7 @@ class LibraryManagement(models.Model):
     _description = 'Library Management'
     _rec_name = 'book_name'
 
-    name_enrol = fields.Many2one(
-        'school.management.student', string='Name and Enroll')
+    name_enrol = fields.Many2one('school.management.student', string='Name and Enroll')
     book_name = fields.Char(string='Book Name')
     book_id = fields.Char(string='Book ID')
     issue_date = fields.Date()
@@ -432,3 +431,20 @@ class SchoolSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     director_name= fields.Char(string='Director Name')
+
+    def default_get(self, fields):
+        res = super(SchoolSettings, self).default_get(fields)
+        default_values = self.get_default_director_name(fields)
+        res.update(default_values)
+        return res
+
+    def set_values(self):
+        super(SchoolSettings, self).set_values()
+        config_param = self.env['ir.config_parameter'].sudo()
+        config_param.set_param('school_management.director_name', self.director_name or '')
+
+    @api.model
+    def get_default_director_name(self, fields):
+        return {
+            'director_name': self.env['ir.config_parameter'].sudo().get_param('school_management.director_name', default=''),
+        }
