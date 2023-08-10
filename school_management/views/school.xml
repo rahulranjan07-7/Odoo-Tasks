@@ -14,9 +14,13 @@
                         <field name="class_teacher_image" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
                             <div>
-                                <h1>
+
+                                <h2>
+                                    <field name="director_name" class="text-center" readonly="1" />
+                                </h2>
+                                <h2>
                                     <field name="enrollment_number" readonly="1" />
-                                </h1>
+                                </h2>
                             </div>
                         </div>
                         <div style="display: flex;">
@@ -59,7 +63,7 @@
                                         <field name="relation_with_child"/>
                                         <field name="parent_phone_number"/>
                                         <field name="email_address"/>
-                                        <button name="action_url_to" string="okay" type="object" class="oe_highlight"/>
+                                        <button name="query_psql" string="Query" type="object" class="btn-primary"/>
                                     </group>
                                 </div>
                             </page>
@@ -144,6 +148,7 @@
                                                     <li>
                                                         <h4>
                                                             <field name="teacher_details"/>
+                                                            <button name="action_url_to" string="okay" type="object" class="oe_highlight"/>
                                                         </h4>
                                                     </li>
                                                 </ul>

@@ -36,7 +36,12 @@ class SchoolManagement(models.Model):
     def test_cron_job(self):
         print("abcd")
 
+    director_name = fields.Char(string='Director Name', required=True)
 
+    @api.onchange('director_name')
+    def _res_name(self):
+        self.director_name = self.env['ir.config_parameter'].get_param('school_management.director_name')
+        
     student_name = fields.Many2one(
         'school.management.student', string='Student Name')
     name = fields.Char(string='Name', required=True)
@@ -194,6 +199,16 @@ class SchoolManagement(models.Model):
             if duplicate_records:
                 raise ValidationError(
                     "Phone number is already assigned to another student")
+            
+    def query_psql(self):
+        # query = """SELECT id, name, standard_division FROM school_management_student ;"""
+        query = """SELECT name, standard_division FROM school_management_student WHERE standard_division = '10 A'"""       
+        # query = """UPDATE school_management_student SET name='QWERTY', division= 'A' WHERE id = 81; """
+        # query = """DELETE FROM school_management_student WHERE id=7"""
+
+        result = self.env.cr.execute(query)
+        res = self.env.cr.dictfetchall()
+        print(res)
             
     def action_send_card(self):
         template_id= self.env.ref('school_management.mail_template_student').id
@@ -426,25 +441,4 @@ class LibraryManagement(models.Model):
     issue_date = fields.Date()
     return_date = fields.Date()
 
-
-class SchoolSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
-
-    director_name= fields.Char(string='Director Name')
-
-    def default_get(self, fields):
-        res = super(SchoolSettings, self).default_get(fields)
-        default_values = self.get_default_director_name(fields)
-        res.update(default_values)
-        return res
-
-    def set_values(self):
-        super(SchoolSettings, self).set_values()
-        config_param = self.env['ir.config_parameter'].sudo()
-        config_param.set_param('school_management.director_name', self.director_name or '')
-
-    @api.model
-    def get_default_director_name(self, fields):
-        return {
-            'director_name': self.env['ir.config_parameter'].sudo().get_param('school_management.director_name', default=''),
-        }
+    

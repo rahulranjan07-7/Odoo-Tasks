@@ -1,1 +1,1 @@
-from . import payment, school, salemodel
+from . import payment, school, salemodel, school_config

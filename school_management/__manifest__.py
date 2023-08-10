@@ -6,6 +6,7 @@
     'sequence': '1',
     'category': 'Education System',
     'description': 'storing students information',
+    'summary' : 'A Module For School Management',
     'website': 'https://www.smschool.com',
     'data': [
         'security/ir.model.access.csv',
