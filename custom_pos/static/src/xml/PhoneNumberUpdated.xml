@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<templates xml:space="preserve">
+<templates id="template" xml:space="preserve">
 
 
     <t t-name="PhoneNumberUpdated" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension" owl="1">

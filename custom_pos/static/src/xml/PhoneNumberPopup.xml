@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
+
     <t t-name="custom_pos.PhoneNumberPopup" owl="1">
         <div class="popup cash-move-popup">
             <main class="body">

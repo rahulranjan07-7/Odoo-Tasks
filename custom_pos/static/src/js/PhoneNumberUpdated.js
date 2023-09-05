@@ -1,7 +1,7 @@
 odoo.define('custom_pos', function(require) {
     'use strict';
  
-    var { Order } = require('point_of_sale.models');
+    // var { Order } = require('point_of_sale.models');
     const { Gui } = require("point_of_sale.Gui");
     const { _lt } = require("@web/core/l10n/translation");
     const ProductScreen = require('point_of_sale.ProductScreen');
@@ -18,7 +18,7 @@ odoo.define('custom_pos', function(require) {
             const selectedOrder = this.env.pos.get_order();
             const { confirmed, payload: phoneNumber } = await this.showPopup('PhoneNumberPopup',  {
                 startingValue: selectedOrder.get_customer_phone_number(),
-                title: this.env._t('Add Customer order note'),
+                // title: _lt('Add Customer order note'),
             });
             if (confirmed) {
                 selectedOrder.set_customer_phone_number(phoneNumber);
@@ -30,7 +30,7 @@ odoo.define('custom_pos', function(require) {
             if (this.env.pos.get_order().partner == null) {
               Gui.showPopup("ErrorPopup", {
                 title: _lt("Error"),
-                body: _lt(`Customer selection required!`),
+                body: _lt(`You need to select customer to go ahead with the process!!`),
               });
             } else {
               super._onClickPay();
