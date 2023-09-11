@@ -10,12 +10,17 @@
     'data': [
         'security/ir.model.access.csv',
         'views/custom_pos.xml',
+<<<<<<< HEAD
         'views/inherit_pos_order_view.xml',
        
+=======
+        'views/partner_details.xml',
+>>>>>>> 97a401ffd5157842a9b733b04e3b458daf76c645
     ],
 
     'assets': {
       'point_of_sale.assets': [
+<<<<<<< HEAD
                                'custom_pos/static/src/js/OrderScreenUpdated.js',
                                'custom_pos/static/src/xml/OrderScreenUpdated.xml',
                                'custom_pos/static/src/js/override.js',
@@ -27,6 +32,10 @@
                                'custom_pos/static/src/xml/TicketScreenUpdated.xml',
                                'custom_pos/static/src/js/UpdatedOrder.js',
                                'custom_pos/static/src/xml/PhoneNumberUpdated.xml',
+=======
+                               'custom_pos/static/src/js/*',
+                               'custom_pos/static/src/xml/*',
+>>>>>>> 97a401ffd5157842a9b733b04e3b458daf76c645
                             ]
     },
 

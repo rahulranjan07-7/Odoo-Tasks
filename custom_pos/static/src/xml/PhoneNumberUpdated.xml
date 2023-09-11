@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <templates xml:space="preserve">
+=======
+<templates id="template" xml:space="preserve">
+>>>>>>> 97a401ffd5157842a9b733b04e3b458daf76c645
 
 
     <t t-name="PhoneNumberUpdated" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension" owl="1">
 
             <xpath expr="//div[hasclass('control-buttons')]" position="inside">
                 <div class="control-button" t-on-click='onClick'>
+<<<<<<< HEAD
                     <i class="fa fa-phone" />
                     <span> </span>
                     <span>Phone Number</span>
+=======
+                    <i class="fa fa-sticky-note" />
+                    <span> </span>
+                    <span>Order Note</span>
+>>>>>>> 97a401ffd5157842a9b733b04e3b458daf76c645
                 </div>
             </xpath>
 

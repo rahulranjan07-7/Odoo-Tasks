@@ -1,3 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+<<<<<<< HEAD
 pos_custom.access_pos_custom,access_pos_custom,pos_custom.model_pos_custom,,1,1,1,1
 access_pos_order,pos.order,model_pos_order,,1,1,1,1
+=======
+custom_pos.access_custom_pos,access_custom_pos,custom_pos.model_custom_pos,,1,1,1,1
+>>>>>>> 97a401ffd5157842a9b733b04e3b458daf76c645

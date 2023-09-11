@@ -30,6 +30,7 @@ odoo.define('custom_pos.PhoneNumberPopup', function (require) {
             const phno = this.phoneNumber.el.value
            
             if (phno == ""){
+<<<<<<< HEAD
                 this.phone.error="Enter Phone Number"
             }
             else if (phno.length != 10){
@@ -37,6 +38,12 @@ odoo.define('custom_pos.PhoneNumberPopup', function (require) {
             }
             else{
                 this.phone.error=""
+=======
+                this.phone.error="Order Note"
+            }
+            else{
+                this.phone.error="Enter valid note"
+>>>>>>> 97a401ffd5157842a9b733b04e3b458daf76c645
                 return super.confirm();
             }
         }
