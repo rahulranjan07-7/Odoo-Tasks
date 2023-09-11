@@ -18,12 +18,12 @@
                             </div>
                         </div>
 
-                        <div class="col-8 col-lg-4 o_settings_box" id="school_setting_estd_date">
+                        <!-- <div class="col-8 col-lg-4 o_settings_box" id="school_setting_estd_date">
                             <span class="o_form_label">Establish Date</span>
                             <div class="text-muted content-group mt16">
                                 <field name="school_estd_date"/>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-8 col-lg-4 o_settings_box" id="school_setting_admission_fee">
                             <span class="o_form_label">Admission Fee</span>

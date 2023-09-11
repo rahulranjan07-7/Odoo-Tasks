@@ -315,6 +315,12 @@
             </field>
         </record>
 
+        <record model="ir.actions.act_window" id="action_student_detail">
+            <field name="name">Students List</field>
+            <field name="res_model">school.management.student</field>
+            <field name="context">{'search_default_filter_10th': 1}</field>
+            <field name="view_mode">tree,form,graph,kanban,pivot</field>
+        </record>
         <record model="ir.actions.act_window" id="action_submit">
             <field name="name">Students List</field>
             <field name="res_model">school.management.student</field>
@@ -352,13 +358,14 @@
         </record>
 
 
-        <menuitem id="menu_student_details" name="School Management" sequence="10"/>
-        <menuitem id="menu_library_details" name="Library" parent="menu_student_details" action="action_library_submit"/>
-        <menuitem id="teacher_data" name="Teachers" parent="menu_student_details" action="action_teacher"/>
-        <menuitem id="menu_data" name="Streams" parent="menu_student_details" action="action_submit" />
+        <menuitem id="menu_student_details" name="School Management" action="action_student_detail"/>
+        <menuitem id="menu_data" name="Streams" parent="menu_student_details" action="action_submit" sequence='20'/>
+        <menuitem id="teacher_data" name="Teachers" parent="menu_student_details" action="action_teacher" sequence='30'/>
+        <menuitem id="menu_library_details" name="Library" parent="menu_student_details" action="action_library_submit" sequence='50'/>
         <menuitem id="menu_school_student_science" name="Science Students" parent="menu_data" action="action_school_student_science" />
         <menuitem id="menu_school_student_commerce" name="Commerce Students" parent="menu_data" action="action_school_student_commerce" />
         <menuitem id="menu_school_student_arts" name="Arts Students" parent="menu_data" action="action_school_student_arts" />
 
     </data>
+    
 </odoo>

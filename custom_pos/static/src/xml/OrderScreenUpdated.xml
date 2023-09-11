@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="CustomOrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="inside">
+           
+                <div style="font-weight:bold;">Mobile Number:
+                    <t t-esc='receipt.phoneNumber'/>
+                </div>
+            
+        </xpath>
+    </t>
+</templates>

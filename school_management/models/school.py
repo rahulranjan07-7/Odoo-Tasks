@@ -36,7 +36,7 @@ class SchoolManagement(models.Model):
     def test_cron_job(self):
         print("abcd")
 
-    director_name = fields.Char(string='Director Name', required=True)
+    director_name = fields.Char(string='Director Name')
 
     @api.onchange('director_name')
     def _res_name(self):

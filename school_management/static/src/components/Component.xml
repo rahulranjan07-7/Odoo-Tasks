@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="Parent" owl='1'>
+        <select t-model="state.form_render">
+            <option value="">Select any page</option>
+            <option value="a">A</option>
+            <option value="b">B</option>
+            <option value="Hi">Hi</option>
+            <option value="form">Form</option>
+            <option value="root">Root</option>
+
+        </select>
+        <t t-component="myComponent"/>
+    </t>
+
+    <t t-name="school_management.A" owl='1'>
+        <div id="school_management"><h4>Hello Everyone</h4></div>
+    </t>
+
+    <div t-name="Hi"  owl='1' class="Hi" t-on-click="toggle">
+        <t t-esc="state.word"/> <t t-esc="props.name"/>
+    </div>
+    
+    <div t-name="Form" owl='1'>
+    <h1>Form</h1>
+    <div class = "text-imme">
+      Name: <input t-model="state.text"/>
+    </div>
+    <div>
+      Address: <input t-model.lazy="state.othertext"/>
+    </div>  
+    <div>
+      Number: <input t-model.number="state.number"/>
+    </div>
+    <div>
+      Boolean: <input type="checkbox" t-model="state.bool"/>
+    </div>
+    <div>
+      Color, with a select:
+      <select t-model="state.color">
+        <option value="">Select a color</option>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+      </select>
+    </div>
+    <div>
+      Color, with radio buttons:
+      <span><input type="radio" name="color" id="red" value="red" t-model="state.color"/><label for="red">Red</label></span>
+      <span><input type="radio" name="color" id="blue" value="blue" t-model="state.color"/><label for="blue">Blue</label></span>
+    </div>
+    <hr/>
+    <h1>State</h1>
+    <div>Text: <t t-esc="state.text"/></div>
+    <div>Other Text: <t t-esc="state.othertext"/></div>
+    <div>Number: <t t-esc="state.number"/></div>
+    <div>Boolean: <t t-if="state.bool">True</t><t t-else="">False</t></div>
+    <div>Color: <t t-esc="state.color"/></div>
+  </div>
+  
+
+    <t t-name="Task" owl='1'>
+        <li t-attf-style="background-color: #{props.task.color}" class="d-flex align-items-center 
+                justify-content-between border p-3 mb-2 rounded">
+                <div class="form-check form-switch fs-5">
+                    <input class="form-check-input" type="checkbox" value="" t-att-id="props.task.id"/>
+                    <label class="form-check-label" t-att-for="props.task.id">
+                        <t t-esc="props.task.name"/>
+                    </label>
+                </div>
+                <div>
+                <button class="btn btn-primary me-2"><i class="bi bi-pencil-fill"></i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                </svg></button>
+                <button class="btn btn-danger"><i class="bi bi-trash"></i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                </svg></button> 
+                </div>
+        </li>
+    </t>
+
+
+    <t t-name="Root" owl='1'>
+        <div>
+            <div class="input-group-lg w-100 d-flex border rounded align-items-center">
+                <input type="text" class="form-control-lg flex-fill border=0" placeholder="Add Your New Task" 
+                aria-label="Add Your New Task" aria-describedby="button-addon2" t-att-value="state.name"
+                t-model="state.name"/>
+                <input type="color" class="form-control-lg form-control-color border=0 bg-white m-0" 
+                id="color" t-att-value="state.color" title="Choose your color" t-model="state.color"/>
+                <button class="btn btn-primary" type="button" id="button-addon2" t-on-click="addTask"><i class="bi bi-plus-lg"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" 
+                viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                </svg></button>
+            </div>
+        </div>
+
+        <ul class="d-flex flex-column mt-5 p-0">
+            <t t-foreach="Task" t-as="task" t-key="task.id">
+                <li t-attf-style="background-color: #{task.color}" class="d-flex align-items-center 
+                justify-content-between border p-3 mb-2 rounded">
+                    <div class="form-check form-switch fs-5">
+                        <input class="form-check-input" type="checkbox" value="" t-att-id="task.id"/>
+                        <label class="form-check-label" t-att-for="task.id">
+                            <t t-esc="task.name"/>
+                        </label>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary me-2"><i class="bi bi-pencil-fill"></i><svg 
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+                        class="bi bi-pencil-fill" viewBox="0 0 16 16"> <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                        </svg></button>
+                        <button class="btn btn-danger"><i class="bi bi-trash"></i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg></button> 
+                    </div>
+                </li>
+            </t>
+        </ul>
+    </t>  
+</templates>

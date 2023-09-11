@@ -17,10 +17,10 @@
                     </group>
                 </sheet>
             </form>
-            <div class="oe_chatter">
+            <!-- <div class="oe_chatter">
                 <field name="message_follower_ids"/>
                 <field name="message_ids" options="{'post refresh': 'recipients'}"/>
-            </div>
+            </div> -->
         </field>
     </record>
 
@@ -55,6 +55,6 @@
               name="Payments"
               action="action_school_payments"
               parent="menu_student_details"
-              sequence="20"/>
+              sequence="50"/>
     
 </odoo>

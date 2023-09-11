@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+
+    <t t-name="NewTicketScreen" t-inherit="point_of_sale.TicketScreen" t-inherit-mode="extension" owl="1">
+
+
+        <xpath expr="//div[contains(@class, 'header-row')]" position="inside">
+            <div class="col">Phone Number</div>
+        </xpath>
+
+
+
+        <xpath expr="//div[contains(@class, 'order-row')]" position="inside">
+            <div class="col">
+                <div> <t t-esc="phno.num"></t></div>
+            </div>
+        </xpath>
+
+
+    </t>
+
+
+</templates>        

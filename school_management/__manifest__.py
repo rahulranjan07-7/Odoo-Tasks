@@ -14,14 +14,22 @@
         'views/school.xml',
         'views/payment_view.xml',
         'views/salesmodel.xml',
-        'views/demo.xml',
         'views/res_config_views.xml',
+        'views/demo.xml',
+        'views/component_view.xml',
         'reports/student_card.xml',
         'reports/inherit.xml',
         'reports/report.xml',
         'data/mail_template.xml',
         'data/student_cron.xml',
     ],
+
+    'assets': {
+      'web.assets_backend': ['school_management/static/src/components/Component.js',
+                             'school_management/static/src/components/Component.xml',
+                             ],
+   },
+
     'installable': True,
     'application': True,
     'auto_install': False,
