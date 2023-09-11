@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+           <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.school</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="School" id="school" string="School" data-key="school_management">
+                    <h2>School Management</h2>
+
+                    <div class="row mt16 o_settings_container" id="school_setting">
+                        <div class="col-8 col-lg-4 o_settings_box" id="school_setting">
+                            <span class="o_form_label">Director Name</span>
+                            <div class="text-muted content-group mt16">
+                                <field name="director_name"/>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-8 col-lg-4 o_settings_box" id="school_setting_estd_date">
+                            <span class="o_form_label">Establish Date</span>
+                            <div class="text-muted content-group mt16">
+                                <field name="school_estd_date"/>
+                            </div>
+                        </div> -->
+
+                        <div class="col-8 col-lg-4 o_settings_box" id="school_setting_admission_fee">
+                            <span class="o_form_label">Admission Fee</span>
+                            <div class="text-muted content-group mt16">
+                                <field name="admission_fee"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt16 o_settings_container" id="school_setting_open_registered">
+                        <div class="col-8 col-lg-4 o_settings_box" id="school_setting_school_open">
+                            <span class="o_form_label">School Open</span>
+                            <div class="text-muted content-group mt16">
+                                <field name="school_open"/>
+                            </div>
+                        </div>
+                        <div class="col-8 col-lg-4 o_settings_box" id="school_setting_school_registered">
+                            <span class="o_form_label">Is School Registered?</span>
+                            <div class="text-muted content-group mt16">
+                                <field name="is_registered"/>
+                            </div>
+                        </div>
+                        <div class="col-8 col-lg-4 o_settings_box" id="school_setting_registration_number">
+                            <span class="o_form_label">Registration Number</span>
+                            <div class="text-muted content-group mt16">
+                                <field name="registration_number"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+        <record id="school_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module': 'school_management', 'bin_size': False}</field>
+        </record>
+
+        <menuitem id="school_config_settings_menu" 
+        name="Config Settings" 
+        action="school_config_settings_action" 
+        parent="menu_student_details" 
+        sequence="40" 
+        groups="base.group_system"/>
+
+    </data>
+</odoo>

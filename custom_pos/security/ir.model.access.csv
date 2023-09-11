@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+custom_pos.access_custom_pos,access_custom_pos,custom_pos.model_custom_pos,,1,1,1,1
+custom_pos.access_pos_location,access_pos_location,custom_pos.model_pos_location,base.group_user,1,1,1,1

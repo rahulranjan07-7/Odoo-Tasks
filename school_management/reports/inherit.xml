@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template inherit_id="school_management.report_student" id="report_student_card_inherit">
+            <xpath expr="//tr[@id='here']" position="after">
+                <tr>
+                    <td colspan="2">
+                        <span>
+                            <strong>Standard and Division</strong>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span t-field="o.standard_division"/>
+                    </td>
+                </tr>
+            </xpath>
+        </template>
+    </data>
+</odoo>

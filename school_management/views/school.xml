@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_school_management_student_form" model="ir.ui.view">
+            <field name="name">school.management.student.form</field>
+            <field name="model">school.management.student</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_send_card" type="object" string="Send Email" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <field name="student_image" widget="image" class="oe_avatar"/>
+                        <field name="class_teacher_image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <div>
+
+                                <h2>
+                                    <field name="director_name" class="text-center" readonly="1" />
+                                </h2>
+                                <h2>
+                                    <field name="enrollment_number" readonly="1" />
+                                </h2>
+                            </div>
+                        </div>
+                        <div style="display: flex;">
+                            <div style="margin-right: 20px;">
+                                <group>
+                                    <field name="progress_bar" widget="progressbar"/>
+                                    <field name='student_name'/>
+                                    <field name="name"/>
+                                    <field name="date_of_birth"/>
+                                    <field name="is_good" widget="boolean_toggle"/>
+                                    <field name="gender" placeholder="Select"/>
+                                    <field name="total_hobby_fee"/>
+                                </group>
+                            </div>
+                            <div style="margin-right: 20px;">
+                                <group>
+                                    <field name="age"/>
+                                    <field name="phone_number"/>
+                                    <field name="birth_month"/>
+                                    <field name="roll_number"/>
+                                    <field name="active" widget="boolean_toggle"/>
+                                </group>
+                            </div>
+                            <div style="margin-right: 20px;">
+                                <group>
+                                    <field name="standard_division"/>
+                                    <field name="stream" attrs="{'invisible': [('standard_division', 'not in', ('11','12'))]}"/>
+                                    <field name="class_teacher" widget="Many2one_link"/>
+                                    <field name='payment_status'/>
+                                    <field name="status" placeholder="Select"/>
+                                </group>
+                            </div>
+                        </div>
+
+                        <notebook>
+                            <page string="Parents Details">
+                                <div style="margin-right: 20px;">
+                                    <group>
+                                        <field name="parent_name"/>
+                                        <field name="relation_with_child"/>
+                                        <field name="parent_phone_number"/>
+                                        <field name="email_address"/>
+                                        <button name="query_psql" string="Query" type="object" class="btn-primary"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Previous School Details">
+                                <div style="margin-right: 20px;">
+                                    <group>
+                                        <field name="school_name"/>
+                                        <field name="previous_roll_number"/>
+                                        <field name="admission_date"/>
+                                        <field name="leaving_date"/>
+                                        <button name="action_url" string="Action" type="object" class="oe_highlight"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Address Details">
+                                <div style="margin-right: 20px;">
+                                    <group>
+                                        <field name="street"/>
+                                        <field name="city"/>
+                                        <field name="state_id"/>
+                                        <field name="country_id"/>
+                                        <field name="zip_code"/>
+                                        <field name="address"/>
+                                        <button name="%(create_school_info)d" string="Wizard" type="action" class="oe_highlight" />
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Hobbies Details">
+                                <field name="hobbies_ids">
+                                    <kanban>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_global_click">
+                                                <div class="oe_kanban_details">
+                                                    <ul>
+                                                        <li>
+                                                            <field name="hobby_image" widget="image" class="oe_avatar"/>
+                                                        </li>
+                                                        <li>
+                                                            <h4>
+                                                                <field name="fav_sports"/>
+                                                            </h4>
+                                                        </li>
+                                                        <li>
+                                                            <field name="no_of_sports"/>
+                                                        </li>
+                                                        <li>
+                                                            <field name="sports_fee"/>
+                                                        </li>
+                                                        <li>
+                                                            <field name="enrollment_number"/>
+                                                        </li>
+                                                        <li>
+                                                            <field name="fee_sub_total"/>
+                                                        </li>
+                                                        <li>
+                                                            <field name="currency_id"/>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </kanban>
+                                    <form>
+                                        <group>
+                                            <field name="hobby_image" widget="image" class="oe_avatar"/>
+                                            <field name="fav_sports"/>
+                                            <field name="no_of_sports"/>
+                                            <field name="enrollment_number"/>
+                                            <field name="sports_fee"/>
+                                            <field name="currency_id"/>
+                                            <field name="fee_sub_total"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Teacher Details">
+                                <kanban>
+                                    <t t-name="kanban-box">
+                                        <div t-attf-class="oe_kanban_global_click">
+                                            <div class="oe_kanban_details">
+                                                <ul>
+                                                    <li>
+                                                        <h4>
+                                                            <field name="teacher_details"/>
+                                                            <button name="action_url_to" string="okay" type="object" class="oe_highlight"/>
+                                                        </h4>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </kanban>
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids" options="{'post refresh': 'recipients'}"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_student_tree" model="ir.ui.view">
+            <field name="name">school.management.student.tree</field>
+            <field name="model">school.management.student</field>
+            <field name="arch" type="xml">
+
+                <tree sample="1" multi_edit="1">
+                    <field name="handle" widget="handle"/>
+                    <field name="name" optional="show"/>
+                    <field name="standard_division" optional="show"/>
+                    <field name="create_date" optional="show"/>
+                    <field name="write_date" optional="show"/>
+                    <field name="stream" optional="show"/>
+                    <field name="enrollment_number" optional="show"/>
+                    <field name="phone_number" optional="show"/>
+                    <field name="fee_status" optional="show"/>
+                    <field name="status" optional="show"/>
+                    <field name="total_hobby_fee" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_school_management_student_pivot" model="ir.ui.view">
+            <field name="name">school.management.student.pivot</field>
+            <field name="model">school.management.student</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="name"/>
+                    <field name="standard_division"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_school_management_student_kanban" model="ir.ui.view">
+            <field name="name">school.management.student.kanban</field>
+            <field name="model">school.management.student</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="standard_division">
+                    <field name="handle" widget="handle"/>
+                    <field name="id" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                                <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image:url('#{kanban_image('school.management.student', 'student_image', record.id.raw_value)}')">
+                                        <img alt='student image' class="o_kanban_image_inner_pic" style="{height:10px; width:10px}" t-att-src="kanban_image('school.management.student', 'class_teacher_image', record.id.raw_value)"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <ul>
+                                        <li>
+                                            <h4>
+                                                <field name="name"/>
+                                            </h4>
+                                        </li>
+                                        <li>
+                                            <field name="standard_division"/>
+                                        </li>
+                                        <li>
+                                            <field name="enrollment_number"/>
+                                        </li>
+                                        <li>
+                                            <field name="phone_number"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_student_graph" model="ir.ui.view">
+            <field name="name">school.management.student.graph</field>
+            <field name="model">school.management.student</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="name" type="row"/>
+                    <field name="age" type="measure"/>
+                    <field name="age" type="col"/>
+
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_library_form" model="ir.ui.view">
+            <field name="name">school.management.library.form</field>
+            <field name="model">school.management.library</field>
+            <field name="arch" type="xml">
+                <form string="Library">
+                    <sheet>
+                        <group>
+                            <field name="name_enrol"/>
+                            <field name="book_name"/>
+                            <field name="book_id"/>
+                            <field name="issue_date"/>
+                            <field name="return_date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_library_tree" model="ir.ui.view">
+            <field name="name">school.management.library.tree</field>
+            <field name="model">school.management.library</field>
+            <field name="arch" type="xml">
+                <tree string="Library">
+                    <field name="name_enrol"/>
+                    <field name="book_name"/>
+                    <field name="book_id"/>
+                    <field name="issue_date"/>
+                    <field name="return_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_library_submit">
+            <field name="name">Library</field>
+            <field name="res_model">school.management.library</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="view_school_management_student_search" model="ir.ui.view">
+            <field name="name">school.management.student.search</field>
+            <field name="model">school.management.student</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="birth_month" string="Month"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Birth Month" name="birth_month" context="{'group_by': 'birth_month'}"/>
+                    </group>
+
+                    <field name="date_of_birth" string="Date Of Birth"/>
+
+                    <group expand="0" string="Group By">
+                        <filter string="Date Of Birth" name="date_of_birth" context="{'group_by': 'date_of_birth'}"/>
+                    </group>
+
+                    <field name="standard_division" string="Standard &amp; Division"/>
+                    <filter name="filter_10th" string="10th Standard" domain="[('standard_division', 'like', '10')]"/>
+
+                    <field name="date_of_birth" string="Date Of Birth"/>
+                    <filter name="filter_16/01/2000" string="Date Filter" domain="[('date_of_birth', '&gt;=', '16/01/2000')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_student_detail">
+            <field name="name">Students List</field>
+            <field name="res_model">school.management.student</field>
+            <field name="context">{'search_default_filter_10th': 1}</field>
+            <field name="view_mode">tree,form,graph,kanban,pivot</field>
+        </record>
+        <record model="ir.actions.act_window" id="action_submit">
+            <field name="name">Students List</field>
+            <field name="res_model">school.management.student</field>
+            <field name="context">{'search_default_filter_10th': 1}</field>
+            <field name="view_mode">tree,form,graph,kanban,pivot</field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_teacher">
+            <field name="name">Teachers</field>
+            <field name="res_model">school.management.teacher</field>
+        </record>
+
+        <record id="action_school_student_science" model="ir.actions.act_window">
+            <field name="name">Science Students</field>
+            <field name="res_model">school.management.student</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_stream' : 'science'}</field>
+            <field name="domain">[('stream', '=', 'science')]</field>
+        </record>
+
+        <record id="action_school_student_commerce" model="ir.actions.act_window">
+            <field name="name">Commerce Students</field>
+            <field name="res_model">school.management.student</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_stream' : 'commerce'}</field>
+            <field name="domain">[('stream', '=', 'commerce')]</field>
+        </record>
+        <record id="action_school_student_arts" model="ir.actions.act_window">
+            <field name="name">Arts Students</field>
+            <field name="res_model">school.management.student</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_stream' : 'arts'}</field>
+            <field name="domain">[('stream', '=', 'arts')]</field>
+        </record>
+
+
+        <menuitem id="menu_student_details" name="School Management" action="action_student_detail"/>
+        <menuitem id="menu_data" name="Streams" parent="menu_student_details" action="action_submit" sequence='20'/>
+        <menuitem id="teacher_data" name="Teachers" parent="menu_student_details" action="action_teacher" sequence='30'/>
+        <menuitem id="menu_library_details" name="Library" parent="menu_student_details" action="action_library_submit" sequence='50'/>
+        <menuitem id="menu_school_student_science" name="Science Students" parent="menu_data" action="action_school_student_science" />
+        <menuitem id="menu_school_student_commerce" name="Commerce Students" parent="menu_data" action="action_school_student_commerce" />
+        <menuitem id="menu_school_student_arts" name="Arts Students" parent="menu_data" action="action_school_student_arts" />
+
+    </data>
+    
+</odoo>

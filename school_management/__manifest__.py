@@ -1,0 +1,37 @@
+{
+    'name': 'School Management',
+    'version': '16.0',
+    'depends': ['base', 'mail', 'sale_management'],
+    'author': 'Rahul Ranjan',
+    'sequence': '1',
+    'category': 'Education System',
+    'description': 'storing students information',
+    'summary' : 'A Module For School Management',
+    'website': 'https://www.smschool.com',
+    'data': [
+        'security/ir.model.access.csv',
+        'wizard/create_school_info_view.xml',
+        'views/school.xml',
+        'views/payment_view.xml',
+        'views/salesmodel.xml',
+        'views/res_config_views.xml',
+        'views/demo.xml',
+        'views/component_view.xml',
+        'reports/student_card.xml',
+        'reports/inherit.xml',
+        'reports/report.xml',
+        'data/mail_template.xml',
+        'data/student_cron.xml',
+    ],
+
+    'assets': {
+      'web.assets_backend': ['school_management/static/src/components/Component.js',
+                             'school_management/static/src/components/Component.xml',
+                             ],
+   },
+
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'license': 'LGPL-3',
+}

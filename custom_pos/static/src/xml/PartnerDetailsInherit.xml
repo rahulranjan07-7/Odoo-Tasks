@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="InheritPartnerDetailsEdit" t-inherit="point_of_sale.PartnerDetailsEdit" t-inherit-mode="extension" owl="1">
+      
+        <xpath expr="//div[hasclass('partner-details-right')]" position="inside">
+            <div class="partner-detail">
+                    <span class="label">New-Phone</span>
+                    <input class="detail" name="new_phone_number" t-model="changes.new_phone_number" t-on-change="captureChange"/>
+            </div>
+            
+        </xpath>
+    </t>
+</templates>
