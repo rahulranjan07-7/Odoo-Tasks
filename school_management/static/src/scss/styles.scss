@@ -1,0 +1,13 @@
+.employees-details{
+    .img-container {
+        height:100px;
+        width:100px;
+        flex-shrink: 0;
+    }
+
+    .employee-image {
+        object-fit:cover;
+        height:100%;
+        width:100%;
+    }
+}

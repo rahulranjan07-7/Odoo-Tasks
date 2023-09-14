@@ -1,7 +1,7 @@
 {
     'name': 'School Management',
     'version': '16.0',
-    'depends': ['base', 'mail', 'sale_management'],
+    'depends': ['base', 'mail', 'sale_management', 'website'],
     'author': 'Rahul Ranjan',
     'sequence': '1',
     'category': 'Education System',
@@ -17,6 +17,12 @@
         'views/res_config_views.xml',
         'views/demo.xml',
         'views/component_view.xml',
+        'views/template.xml',
+        'views/employee.xml',
+        'views/snippets/property_agents_snippets.xml',
+        'views/snippets/snippets.xml',
+        'views/snippets/new_properties.xml',
+        'views/snippets/employees_details.xml',
         'reports/student_card.xml',
         'reports/inherit.xml',
         'reports/report.xml',
@@ -25,6 +31,13 @@
     ],
 
     'assets': {
+
+      'web.assets_frontend': ['school_management/static/src/scss/property_agents.scss',
+                              'school_management/static/src/scss/styles.scss',
+                              'school_management/static/src/js/employee_details.js',
+                              'school_management/static/src/js/employee_details_options.js',
+                              ],
+
       'web.assets_backend': ['school_management/static/src/components/Component.js',
                              'school_management/static/src/components/Component.xml',
                              ],

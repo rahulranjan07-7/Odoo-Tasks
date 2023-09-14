@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <t t-name="pos_training_inherit.InheritPartnerDetailsEdit" t-inherit="point_of_sale.PartnerDetailsEdit" t-inherit-mode="extension" owl="1">
+    <t t-name="custom_pos.InheritPartnerDetailsEdit" t-inherit="point_of_sale.PartnerDetailsEdit" t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('partner-details-left')]" position="inside">
             <div class="partner-detail">
                 <span class="label">New Mobile Number</span>

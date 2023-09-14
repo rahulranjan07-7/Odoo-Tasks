@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="employees_details" name="Employee Details Dynamic">
+        <section class="employees-details">
+            <div class="container">
+                <div class="text-center py-5">
+                    <h2 class="h1">Employees Details</h2>
+                    <p>This is a Employees Details Snippet.</p>
+                </div>
+
+
+                <div class="row justify-content-center" id="employees-details-row"/>
+            </div>
+        </section>
+    </template>
+
+
+
+    <template id="employees_details_options" inherit_id="website.snippet_options">
+        <xpath expr="//div[@data-js='Box']" position="before">
+            <div data-js="ExploreEmployeeOptions" data-selector=".employees-details" data-drop-in=".o_mega_menu nav">
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

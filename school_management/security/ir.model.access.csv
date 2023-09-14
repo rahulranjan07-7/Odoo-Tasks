@@ -5,3 +5,4 @@ access_create_school_info_wizard,access_create_school_info.wizard,model_create_s
 librarian_id,librarian_name,model_school_management_library,,1,1,1,1
 access.school.payments,access_school_payments,model_school_payments,,1,1,1,1
 access.school.management.hobbies,access_school_management_hobbies,model_school_management_hobbies,,1,1,1,1
+school_management.access_employee_details,access_employee_details,school_management.model_employee_details,,1,1,1,1

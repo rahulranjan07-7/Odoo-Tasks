@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="new_page" name="page_display">
+		<t t-call="website.layout">
+			<div class="container">
+				Hello
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<td>
+								Students Name
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<t t-foreach="students" t-as="student">
+									<t t-esc="student.name"/><br/>
+								</t>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
+		</t>
+	</template>
+</odoo>
